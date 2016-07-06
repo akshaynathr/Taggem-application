@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Taggem.</title>
+	<link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css"/>
+
+
+	<style type="text/css">
+	body { overflow-x:hidden; width: 100%;}
+.inline { display:inline; }
+.top_nav  { padding:20px; position: fixed; z-index: 10; width: 100%;background-color:#F15A5C ; border-bottom: 1px #e6e6e6 solid;border-radius:0px;}
+	 .top { border-top:5px blue solid; }
+
+.top_nav h3 {  color :#fff; font-weight:900; margin-right:10%; height: 40%;}
+.top_menu li{ color:#fff; margin-right:10px; font-weight:800;}
+.top_menu li a { color:#fff; text-decoration:none; }
+.top_menu li a:hover { -webkit-transition:color 1s ease;  transition:color 1s ease;color: rgba(255,255,255,.7); }
+h5{ color: rgba(255,255,255,.9);}
+
+ </style>
+
+
+</head>
+<body>
+<div class="row" style="paddin:10px;">
+<nav class="navbar top_nav">
+<h3 class = "inline"> Taggem </h3>
+
+<input type="text" class="form-control inline"  style="width:50%; visibility:hidden;" placeholder="Search" />
+<ul class="inline top_menu"> <li class="inline" > <a href="#">Feed</a> </li> <li class="inline"> <a href="#"> Profile</a> </li> </ul>
+<div class="row" style="margin-top:10%;">
+<div class="col-md-2"></div>
+<div class="col-md-8"> 
+<h3 style="color:#000;margin-right:0px;" class="inline"> Connect:</h3>
+<h4 class="inline" style="color:#000;">Find your friends to follow. </h4>
+<!-- <input type="text" class="form-control inline"  style=" margin-left:auto; margin-right:auto; display:hidden;" placeholder="Search with emailid" />
+ -->
+ <form class="navbar-form " style="padding-left:0px;"  role="search">
+    <div class="input-group add-on" style="width:100%;">
+      <input class="form-control"  placeholder="Search with Email id " name="srch-term" id="srch-term" type="text">
+      <div class="input-group-btn">
+        <button class="btn btn-default" id="search" type="submit"><i class="glyphicon glyphicon-search"></i></button>
+      </div>
+    </div>
+  </form>
+
+
+ </div>
+<div class="col-md-2"></div>
+
+</div>
+</nav></div>
+
+<div class="row" style="margin-top:25%;">
+<div class="col-md-2"></div>
+<div class="col-md-8"> 
+<div class="user block col-md-4">
+<img src="#" style="width:50px; height=50px; ">
+<h4 class="inline"> Akshaynath R</h4><button class ="inline btn btn-danger" id="">Follow</button>
+
+<h5 style="color:#000;"> Email:</h5><h5 style="color:#000;"class="email"> akshaynathr@gmail.com</h5>
+</div>
+</div>
+<div class="col-md-2">
+
+
+
+</div>
+   
+</div>	 
+	
+
+
+
+<script src="static/js/jquery.js" integrity="sha256-JmvOoLtYsmqlsWxa7mDSLMwa6dZ9rrIdtrrVYRnDRH0=" crossorigin="anonymous"></script>
+<script type="text/javascript" src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+<script type='text/javascript'src="static/js/feed.js"></script>
+</body>
+</html>

@@ -1,0 +1,197 @@
+from flask import Flask,jsonify,request,render_template,url_for, redirect,flash,session,flash
+from urlparse import urlparse
+import rethinkdb as r
+import json
+
+app=Flask(__name__)
+app.config['SECRET_KEY']='2312ghas'
+from models import dbSetUp
+from extractor import extract,URL_REGEX
+# starts database
+dbSetUp()
+
+conn=r.connect(host='localhost',port='28015')
+
+@app.route('/',methods=['GET','POST'])
+@app.route('/home',methods=['GET','POST'])
+@app.route('/login',methods=['GET','POST'])
+
+def login():
+    if request.method=='GET':
+        if 'apiKey' in session:
+            return redirect(url_for('discover'))
+        return render_template('login.html')
+    if request.method=='POST':
+        username=request.form['username']
+        password=request.form['password']
+
+        count=r.db('taggem2').table('user').filter({'username':username,'password':password}).count().run(conn)
+        user=list(r.db('taggem2').table('user').filter({'username':username,'password':password}).run(conn))
+
+        if count>0:
+            session['apiKey']=user[0]['apiKey']
+            return redirect(url_for('discover'))
+        else :
+            return "Login error"
+    
+
+@app.route('/signup',methods=['GET','POST'])
+def signup_form():
+    if request.method=='GET':
+        return render_template('signup.html')
+ 
+    if request.method=='POST':
+        return redirect(url_for('signup'))
+
+
+@app.route('/signup_form',methods=['GET','POST'])
+def signup():
+    if request.method=='GET':
+        return render_template('signup_info.html')
+    if request.method=='POST':
+        username=request.form['username']
+        password=request.form['password']
+        email=request.form['email']
+        dob=request.form['dob']
+        name=request.form['name']
+        count=r.db('taggem2').table('user').filter({'username':username,'password':password}).count().run(conn)
+        if count >0:
+            result="Welcome  back "+ name 
+            return result
+        else :
+            try:
+                user=r.db('taggem2').table('user').insert({'username':username,'email':email,'dob':dob,'password':password,'name':name,'apiKey':r.random(1000000),'date':r.now()}).run(conn)
+                user_data=list(r.db('taggem2').table('user').filter((r.row['username']==username) & (r.row['password']==password)).run(conn))
+
+                user=r.db('taggem2').table('followers').insert({ 'user_id':user_data[0]['apiKey']}).run(conn)
+            except Exception as e:
+                return "Error in saving data"
+            return "Saved"
+
+@app.route('/receive',methods=['POST'])
+def receive_content():
+   # add post request check 
+    uri=json.loads(request.data)
+    url=uri['url']
+    print url
+    url_count=r.db('taggem2').table('post').filter({'url':url}).count().run(conn)
+    if url_count>0:
+        return jsonify({"type":'success','message':"already saved"}) 
+    data=extract(url)
+    parsed_uri=urlparse(url)
+    domain='{uri.scheme}://{uri.netloc}/'.format(uri=parsed_uri)
+
+    if not URL_REGEX.match(url):
+        return jsonify({
+              'type': 'error',
+              'message': 'Invalid URL'
+        }), 406
+    else:
+
+        try:
+            
+            r.db('taggem2').table('post').insert({'domain':domain,'img_url':data['image'],'url':data['url'],'summary':data['summary'],'keywords':data['keywords'],'authors':data['authors'],'apiKey':uri['apiKey'],'title':data['title'],'text':data['text'],'html':data['html'],'date':r.now(),'views':0}).run(conn)
+
+        except Exception as e:
+            error="Database error:"+str(e)
+            return jsonify({
+              'type': 'error',
+              'message':  error
+        }), 406
+
+
+    return jsonify(type='success',message=data)
+
+
+
+
+@app.route('/discover_page')
+def discover():
+    #add session here
+    if 'apiKey' in session:
+        feed_url='/feed/'+str(session['apiKey'])
+        profile_url='/profile/'+str(session['apiKey'])
+                   
+        return render_template('feed.html',feed=feed_url,profile=profile_url,apiKey=session['apiKey'])
+
+    else :
+        return "Not logged in"
+
+@app.route('/feed/<apiKey>')
+def feed(apiKey):
+    count=r.db('taggem2').table('user').filter({'apiKey':int(apiKey)}).count().run(conn)
+    if count>0:
+        post_feed=list(r.db('taggem2').table('post').filter({'apiKey':int(apiKey)}).order_by(r.desc('date')).run(conn))
+        post_feed=list(r.db('taggem2').table('post').filter({'apiKey':int(apiKey)}).run(conn))
+
+        return jsonify({'feed':post_feed})
+    else :
+        return jsonify({'feed':'error'})
+
+
+
+@app.route('/feed_entry/<postId>/<apiKey>')
+def feed_entry(postId,apiKey):
+    count=r.db('taggem2').table('user').filter({'apiKey':int(apiKey)}).count().run(conn)
+    if count>0:
+        post_feed=list(r.db('taggem2').table('post').filter({'id':(postId)}).run(conn))
+
+        return jsonify({'feed':post_feed})
+    else :
+        return jsonify({'feed':'error'})
+
+
+
+
+def authenticate(apiKey):
+    count=(r.db('taggem2').table('user').filter({'apiKey':int(apiKey)}).count().run(conn))
+    if count>0:
+        return 1
+    else :
+        return 0
+
+@app.route('/profile/<apiKey>')
+def profile(apiKey):
+    print apiKey
+    access=authenticate(apiKey)
+    if access ==1:
+        user=list(r.db('taggem2').table('user').filter({'apiKey':int(apiKey)}).run(conn))
+        print user
+        return render_template('profile.html',user=user[0])
+    else:
+        return "Not logged in "
+
+@app.route('/logout')
+def logout():
+    session.clear()
+    flash("Logged out")
+    return redirect(url_for('login'))
+
+
+@app.route('/followers/<int:apiKey>')
+def followers(apiKey):
+    access=authenticate(apiKey)
+    if access==1:
+        followers=list(r.db('taggem2').table('followers').filter({'apiKey':apiKey}).run(conn))
+        return jsonify({'followers':followers})
+    else:
+        return 0
+
+
+@app.route('/connect')
+def connect():
+    return render_template('/connect.html')
+
+
+#footer links ################################################################################
+@app.route('/about')
+def about():
+    return render_template('footer/about.html')
+
+@app.route('/jobs')
+def jobs():
+    return render_template("footer/jobs.html")
+
+@app.route('/ads')
+def  ads():
+    return render_template('footer/ads.html')

@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Taggem.</title>
+	<link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css"/>
+    <link rel="stylesheet" type="text/css" href="static/css/dropdown.css"/>
+    <link rel="stylesheet" type="text/css" href="static/css/reveal.css"/>
+    <link href="https://fonts.googleapis.com/css?family=Assistant" rel="stylesheet">
+
+
+	<style type="text/css">
+	body { overflow-x:hidden; width: 100%;}
+	.top_nav  { padding:20px; position: fixed; z-index: 10; width: 100%;background-color:#F15A5C ; border-bottom: 1px #e6e6e6 solid;border-radius:0px;}
+	 .top { border-top:5px blue solid; }
+
+	.container {  height: 100%; margin-left: auto; margin-right: auto; padding-top:10%;} 
+	.inline { display: inline;}
+
+	  .item { height: 350px; border-bottom: 1px #e3e3e3 solid; border-top: 1px #e3e3e3 solid; padding-top:20px; padding-bottom: 20px; }
+		
+	.entry {  }
+	.title_main:hover { color:#000; text-decoration:none;}
+	.title_main { color:#4c4c4c; text-decoration:none;}
+
+	 .left { background-color:blue; width: 60%; height: 95%;  border:1px #e3e3e3 solid;border-radius: 5px;}
+	.right {  width: 40%; height: 95%; color: #4c4c4c; line-height: 20px;padding-top:0px;position: relative; }
+
+	.right h3 {  font-weight: 900; padding-top:0px; font-size: 1.5em;}
+	.right p { margin-top:30px; padding:2px; font-size: 14px;}
+
+	.metrics { width: 100%;  padding-top: 2px; padding-bottom: 2px; bottom: 0px; position: absolute; height: 10%;  }
+	.label { padding: 5px; margin-right: 10px;color:#f2c100;}
+	.label a { text-decoration: #000; color:rgba(0,0,0,.4);}
+	.top_nav h3 {  color :#fff; font-weight:900; margin-right:10%; }
+	
+	.top_menu li{ color:#fff; margin-right:10px; font-weight:800;}
+	.top_menu li a { color:#fff; text-decoration:none; }
+	.top_menu li a:hover { -webkit-transition:color 1s ease;  transition:color 1s ease;color: rgba(255,255,255,.7); }
+	#myModal { font-family: 'Assistant', sans-serif;}
+	.left_bar {   font-weight: 900;  font-style: bold; border-top:1px #e3e3e3 solid;}
+	.modal-title { font-size: 2em; font-family: 'Assistant', sans-serif; font-weight: 900;}
+	.modal-body { letter-spacing: .5px;margin-top:1em; font-weight: 400;}
+	.block { display: block; margin-top: 30px;}
+ </style>
+
+
+</head>
+<body>
+<div id="FollowersModal" class="reveal-modal">
+     <h1>Modal Title</h1>
+     <p>Any content could go in here.</p>
+     <a class="close-reveal-modal">&#215;</a>
+</div>
+<nav class="navbar top_nav">
+<h3 class = "inline"> Taggem </h3>
+
+<input type="text" class="form-control inline"  style="width:50%" placeholder="Search" />
+<p class="inline" id="dummy" style="visibility:hidden;">{{apiKey}} </p>
+<ul class="inline top_menu"> <li class="inline" > <a href={{feed}}>Feed</a> </li> <li class="inline"> <a href="{{profile}}"> Profile</a> </li></ul>
+<div class="dropdown">
+    <span class="glyphicon glyphicon-chevron-down"></span> 
+  <div class="dropdown-content">
+    <a href="/settings">Settings</a>
+    <a href="/logout">Logout</a>
+
+  </div>
+</div>
+</nav>
+
+<div  class="container">
+	<!----- POST STARTS HERE -->
+	<div class="col-md-2" > 
+
+
+
+	<div style="position:fixed; text-align:left;" class="left_bar">
+	<a href="#myModal2" class="block" onclick="followers(this);" id="follower" data-toggle='modal'> Followers</a> 
+	<a href="/connect" class="block" id="Connect"  > Connect </a> 
+	</div> 
+
+
+
+	</div>
+	 <div class="col-md-8 insert">
+	 	<!--<div class="row item top">oda
+	 		<div class="col-md-5 left" style="background-image:url('https://cdn2.vox-cdn.com/thumbor/60o-Diw04nVRw0OGVUba_Y2uiHA=/cdn0.vox-cdn.com/uploads/chorus_asset/file/6498515/google-allo-vpavic-verge-12.0.jpg'); background-size:cover;"> </div>
+	 		<div class="col-md-3 right">
+	 		<span class="label">Story from <a href="#"><i>www.verge.com</a></i></span>  -->
+	 			<!--<a href="#" data-reveal-id="myModal"><h3>Google Allo  </h3></a>-->
+	<!--  <a href="#myModal" class="title_main" data-toggle="modal"><h3>Google Allo </h3></a>
+
+	 			<p> App Pins include an install button, so Pinners can download your app without ever leaving Pinterest. (For now, App Pins are compatible with iOS apps only.) </p>
+
+				        		
+
+	 			<div class="metrics"> <img class="inline" src="static/images/eyes.png" width="20" height="20" / > <p class="inline">1,0000232 </p> </div>
+
+	 		</div>
+	 	
+	 	</div> -->
+
+	 	<!-- -------------- Post  ends here ------------ -->
+
+	 	<!--<div class="row item top">
+	 		<div class="col-md-5 left" style="background-image:url('static/images/titan.jpg'); background-size:cover;"> </div>
+
+	 		<div class="col-md-3 right"> 
+	 		<span class="label">Story from <a href="#"><i>www.euronews.com/</a></i></span> 
+	 			<h3>Google drones on with Titan atmospheric satellite purchase </h3>
+
+	 			<p>  Google is buying Titan Aerospace, a solar-powered drone company.
+
+ 				</p>
+
+
+	 			<div class="metrics"> <img class="inline" src="static/images/eyes.png" width="20" height="20" / > <p class="inline">5,5450232 </p> </div>
+
+	 		</div>
+	 	
+	 	</div>
+
+
+	 </div>
+	 <div class="col-md-2"> </div> -->
+	</div>
+
+</div>
+ 	
+
+ 	 <div id="myModal2" class="modal" >
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                    <h1 class="modal-title inline">Confirmation</h1>
+                    
+                </div>
+                <div class="modal-body">
+                	<img src=""  style="width:100%; height:60%;" id="modal_img"/>
+                	<div class="data">
+
+                	</div>
+
+
+                    <p> </p>
+                    
+                </div>
+                <div class="modal-footer">
+                    
+                </div>
+            </div>
+        </div>
+    </div> 
+    
+    <!-- Modal HTML -->
+    <div id="myModal" class="modal fade" >
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                    <h1 class="modal-title inline">Confirmation</h1>
+                    <a href=" "class="btn-danger modal-link"  target="blank" style="padding:5px; float:right ;">READ FULL STORY</a>
+                </div>
+                <div class="modal-body">
+                	<img src=""  style="width:100%; height:60%;" id="modal_img"/>
+                	<div class="data">
+
+                	</div>
+
+
+                    <p> </p>
+                    
+                </div>
+                <div class="modal-footer">
+                    
+                </div>
+            </div>
+        </div>
+    </div> 
+	
+	
+
+</div>
+
+
+<!--<script src="static/js/jquery.js" ></script>-->
+<script   src="https://code.jquery.com/jquery-2.2.4.min.js"   integrity="sha256-BbhdlvQf/xTY9gja0Dq3HiwQF8LaCRTXxZKRutelT44="   crossorigin="anonymous"></script>
+<script type="text/javascript" src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+<script type='text/javascript'src="static/js/feed.js"></script>
+<script type='text/javascript'src="static/js/reveal.js"></script>
+<script type="text/javascript">
+	
+
+
+function display(link)
+
+
+{ 
+	var post_id=link.id;
+	var apiKey=$('#dummy').text();
+	var url='/feed_entry/'+post_id+'/'+apiKey;
+	
+
+
+	$.ajax({
+        url:url,
+        success:function(data){ create_modal(data);},
+        error:function() { alert("Error loading content. Please refresh the page.");}
+		});
+
+$('#myModal').modal({show:true});
+
+
+}
+
+function create_modal(data)
+{
+	$('.modal-title').html(data['feed'][0]['title']); 
+	$('#modal_img').attr('src',data['feed'][0]['img_url']);
+	// $('.data').html(data['feed'][0]['text']);
+
+	$('.modal-body').append(data['feed'][0]['html']);
+	$('.modal-link').attr('href',data['feed'][0]['url']);
+}
+ 
+
+
+
+</script>
+</body>
+</html>

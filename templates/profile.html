@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Taggem.</title>
+	<link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css"/>
+
+
+	<style type="text/css">
+	body { overflow-x:hidden; width: 100%;}
+.inline { display:inline; }
+.top_nav  { padding:20px; position: fixed; z-index: 10; width: 100%;background-color:#F15A5C ; border-bottom: 1px #e6e6e6 solid;border-radius:0px;}
+	 .top { border-top:5px blue solid; }
+
+.top_nav h3 {  color :#fff; font-weight:900; margin-right:10%; }
+.top_menu li{ color:#fff; margin-right:10px; font-weight:800;}
+.top_menu li a { color:#fff; text-decoration:none; }
+.top_menu li a:hover { -webkit-transition:color 1s ease;  transition:color 1s ease;color: rgba(255,255,255,.7); }
+
+ </style>
+
+
+</head>
+<body>
+
+<nav class="navbar top_nav">
+<h3 class = "inline"> Taggem </h3>
+
+<input type="text" class="form-control inline"  style="width:50%" placeholder="Search" />
+<ul class="inline top_menu"> <li class="inline" > <a href="#">Feed</a> </li> <li class="inline"> <a href="#"> Profile</a> </li> </ul>
+
+</nav>
+
+<div class="container">
+
+<div id="myModal2" class="modal fade" >
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                    <h1 class="modal-title inline">Change picture</h1>
+                    
+                </div>
+                <div class="modal-body">
+                  <img src=""  style="width:100%; height:60%;" id="modal_img"/>
+                  <input type="file" />
+                  <div class="data">
+
+                  </div>
+
+
+                    <p> </p>
+                    
+                </div>
+                <div class="modal-footer">
+                    
+                </div>
+            </div>
+        </div>
+    </div>
+  <div class="row">
+    <div class="col-md-9">
+      <div class="panel panel-default">
+        <div class="panel-body">
+          <div class="row">
+            <div class="col-md-12 lead">User profile<hr></div>
+          </div>
+          <div class="row">
+			<div class="col-md-4 text-center">
+              <img class="img-circle avatar avatar-original" style="-webkit-user-select:none; 
+              display:block; margin:auto;" src="http://robohash.org/sitsequiquia.png?size=120x120">
+			<a href="#myModal2" data-toggle='modal'>Change photo </a>
+            </div>
+            <div class="col-md-8">
+              <div class="row">
+                <div class="col-md-12">
+					<h1 class="only-bottom-margin">{{user.name}}</h1>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-md-6">
+                  <span class="text-muted">Email:</span> email@test.com<br>
+                  <span class="text-muted">Birth date:</span> 01.01.2001<br>
+                  <span class="text-muted">Gender:</span> male<br><br>
+                  <small class="text-muted">Created: 01.01.2015</small>
+                </div>
+                <div class="col-md-6">
+                  <div class="activity-mini">
+                    <i class="glyphicon glyphicon-comment text-muted"></i> 500
+                  </div>
+                  <div class="activity-mini">
+                    <i class="glyphicon glyphicon-thumbs-up text-muted"></i> 1500
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-md-12">
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>	 
+	
+
+
+<script   src="https://code.jquery.com/jquery-2.2.4.min.js"   integrity="sha256-BbhdlvQf/xTY9gja0Dq3HiwQF8LaCRTXxZKRutelT44="   crossorigin="anonymous"></script>
+<script type="text/javascript" src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+<script type='text/javascript'src="static/js/feed.js"></script>
+</body>
+</html>
