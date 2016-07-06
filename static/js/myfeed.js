@@ -1,8 +1,8 @@
 $(document).ready(function()
 		{	
-	var url='/feed/';
+	var url='/myfeed/';
 	var apiKey=$('#dummy').text();
-//alert(apiKey);
+// alert(apiKey);
 	url=url+apiKey
 
 	$.ajax({
@@ -23,20 +23,44 @@ $(document).ready(function()
 
 
 
+function followers(link)
+{
+		var url='/followers/';
+	var apiKey=$('#dummy').text();
+alert(apiKey);
+	url=url+apiKey
+
+	$.ajax({
+        url:url,
+        success:function(data){ /*alert(JSON.stringify(data));*/},
+        error:function() { alert("Error loading content. Please refresh the page.");}
+
+		});
+
+
+	$('#myModal2')
+
+
+
+}
+
+
+
 function createAndInsert(data)
 {
 // alert(data['feed'].length);
 for(var i=0;i<data['feed'].length;i++)
-{	var img_url=data['feed'][i]['right']['img_url'];
-	var text=data['feed'][i]['right']['text'];
-	var title=data['feed'][i]['right']['title'];
-	var views=data['feed'][i]['right']['views'];
-	var url=data['feed'][i]['right']['url'];
-	var domain=data['feed'][i]['right']['domain'];
-	var id=data['feed'][i]['right']['id'];
+{	var img_url=data['feed'][i]['img_url'];
+	var text=data['feed'][i]['text'];
+	var title=data['feed'][i]['title'];
+	var views=data['feed'][i]['views'];
+	var url=data['feed'][i]['url'];
+	var domain=data['feed'][i]['domain'];
+	var id=data['feed'][i]['id'];
+	var date=data['feed'][i]['date'];
 	
 	var _text=text.slice(0,200)+'...';
-	create(img_url, title,_text,url,domain,id,views);
+	create(img_url, title,_text,url,domain,id,date,views);
 
 }
 }
@@ -54,13 +78,13 @@ $('#myModal').on('hidden.bs.modal', function () {
 });
 
 
-function create(img_url, title,text,url,domain,id,views=0)
+function create(img_url, title,text,url,domain,id,date,views=0)
 
 {
 	 $('.insert').prepend(
 	 	'<div class="row item top">'+
 
-	 		'<span class="label" style="color:rgba(0,0,0,.8);">Recommended by'+'Anand'+'</span><br/>'+
+	 		'<span class="label" style="color:rgba(0,0,0,.8);">'+'Added on '+date+'</span><br/>'+
 	 		'<div class="col-md-5 left" style="background-image:url('+img_url+'); background-size:cover;"> </div>'+
 	 		'<div class="col-md-3 right">'+
 	 		'<span class="label">Story from <a href="'+url+'" ><i>'+domain+'</a></i></span>'+

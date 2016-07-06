@@ -3,8 +3,7 @@
 <head>
 	<title>Taggem.</title>
 	<link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css"/>
-
-
+ 
 	<style type="text/css">
 	body { overflow-x:hidden; width: 100%;}
 .inline { display:inline; }
@@ -17,6 +16,57 @@
 .top_menu li a:hover { -webkit-transition:color 1s ease;  transition:color 1s ease;color: rgba(255,255,255,.7); }
 h5{ color: rgba(255,255,255,.9);}
 
+
+
+/* Dropdown Button */
+.dropbtn {
+/*    background-color: #4CAF50;*/
+    color: white;
+    font-size: 8px;
+    border: none;
+    cursor: pointer;
+}
+
+/* The container <div> - needed to position the dropdown content */
+.dropdown {
+    position: relative;
+    display: inline-block;
+}
+.dropdown  span{color:#fff;}
+
+/* Dropdown Content (Hidden by Default) */
+.dropdown-content {
+    display: none;
+    position: absolute;
+    background-color: #f9f9f9;
+    min-width: 130px;
+    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+}
+
+/* Links inside the dropdown */
+.dropdown-content a {
+    font-size:12px;
+    color: black;
+    padding: 15px 10px 15px 15px;
+    font-weight:500;
+    text-decoration: none;
+    display: block;
+}
+
+/* Change color of dropdown links on hover */
+.dropdown-content a:hover {background-color: #f1f1f1}
+
+/* Show the dropdown menu on hover */
+.dropdown:hover .dropdown-content {
+    display: block;
+}
+
+/* Change the background color of the dropdown button when the dropdown content is shown */
+.dropdown:hover .dropbtn {
+    background-color: #3e8e41;
+}
+
+
  </style>
 
 
@@ -24,10 +74,17 @@ h5{ color: rgba(255,255,255,.9);}
 <body>
 <div class="row" style="paddin:10px;">
 <nav class="navbar top_nav">
-<h3 class = "inline"> Taggem </h3>
+<h3 class = "inline" style="margin-left:2%;"> Taggem </h3>
 
 <input type="text" class="form-control inline"  style="width:50%; visibility:hidden;" placeholder="Search" />
-<ul class="inline top_menu"> <li class="inline" > <a href="#">Feed</a> </li> <li class="inline"> <a href="#"> Profile</a> </li> </ul>
+<ul class="inline top_menu"> <li class="inline" >  <a href='/discover_page'>Feed</a> <li class="inline" > <a href='/discover_my_feed'>My Tags</a> </li> </li> <li class="inline"> <a href="{{profile}}"> Profile</a> </li></ul>
+<div class="dropdown">
+    <span class="glyphicon glyphicon-chevron-down"></span> 
+  <div class="dropdown-content">
+    <a href="/settings">Settings</a>
+    <a href="/logout">Logout</a>
+  </div>
+</div>
 <div class="row" style="margin-top:10%;">
 <div class="col-md-2"></div>
 <div class="col-md-8"> 
@@ -35,15 +92,15 @@ h5{ color: rgba(255,255,255,.9);}
 <h4 class="inline" style="color:#000;">Find your friends to follow. </h4>
 <!-- <input type="text" class="form-control inline"  style=" margin-left:auto; margin-right:auto; display:hidden;" placeholder="Search with emailid" />
  -->
- <form class="navbar-form " style="padding-left:0px;"  role="search">
+ <form class="navbar-form " method="post" style="padding-left:0px;"  role="search">
     <div class="input-group add-on" style="width:100%;">
-      <input class="form-control"  placeholder="Search with Email id " name="srch-term" id="srch-term" type="text">
+      <input class="form-control"  placeholder="Search with Email id " name="search" id="srch-term" type="text">
       <div class="input-group-btn">
         <button class="btn btn-default" id="search" type="submit"><i class="glyphicon glyphicon-search"></i></button>
       </div>
     </div>
   </form>
-
+{{ msg }} 
 
  </div>
 <div class="col-md-2"></div>
@@ -52,15 +109,23 @@ h5{ color: rgba(255,255,255,.9);}
 </nav></div>
 
 <div class="row" style="margin-top:25%;">
-<div class="col-md-2"></div>
-<div class="col-md-8"> 
-<div class="user block col-md-4">
-<img src="#" style="width:50px; height=50px; ">
-<h4 class="inline"> Akshaynath R</h4><button class ="inline btn btn-danger" id="">Follow</button>
 
-<h5 style="color:#000;"> Email:</h5><h5 style="color:#000;"class="email"> akshaynathr@gmail.com</h5>
+<h4> </h4>
+{% if user %}
+<div class="col-md-2"></div>
+<div class="col-md-8" style=" background-color:rgba(0,0,0,.2); color:#fff;"> 
+
+<div class="user block col-md-8" style="text-align:center;padding:5px; ">
+<img src={{user.img_url }} style="width:50px; height=50px;">
+<h4 class="inline"> {{user.name}}</h4><button class =" btn btn-danger" id='{{user.apiKey }}'>Follow</button>
+
+<h5 style="color:#000;"  > Email:{{user.email}}</h5> 
 </div>
 </div>
+
+{% endif %}
+
+
 <div class="col-md-2">
 
 
@@ -72,8 +137,8 @@ h5{ color: rgba(255,255,255,.9);}
 
 
 
-<script src="static/js/jquery.js" integrity="sha256-JmvOoLtYsmqlsWxa7mDSLMwa6dZ9rrIdtrrVYRnDRH0=" crossorigin="anonymous"></script>
+<script   src="https://code.jquery.com/jquery-2.2.4.min.js"   integrity="sha256-BbhdlvQf/xTY9gja0Dq3HiwQF8LaCRTXxZKRutelT44="   crossorigin="anonymous"></script>
 <script type="text/javascript" src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
-<script type='text/javascript'src="static/js/feed.js"></script>
+ 
 </body>
 </html>

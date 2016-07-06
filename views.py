@@ -35,6 +35,8 @@ def login():
             return "Login error"
     
 
+
+
 @app.route('/signup',methods=['GET','POST'])
 def signup_form():
     if request.method=='GET':
@@ -60,13 +62,13 @@ def signup():
             return result
         else :
             try:
-                user=r.db('taggem2').table('user').insert({'username':username,'email':email,'dob':dob,'password':password,'name':name,'apiKey':r.random(1000000),'date':r.now()}).run(conn)
+                user=r.db('taggem2').table('user').insert({'username':username,'email':email,'dob':dob,'password':password,'name':name,'apiKey':r.random(1000000),'follow':[],'date':r.now()}).run(conn)
                 user_data=list(r.db('taggem2').table('user').filter((r.row['username']==username) & (r.row['password']==password)).run(conn))
-
-                user=r.db('taggem2').table('followers').insert({ 'user_id':user_data[0]['apiKey']}).run(conn)
+                session['apiKey']=user_data['apiKey']
+                
             except Exception as e:
                 return "Error in saving data"
-            return "Saved"
+            return  redirect(url_for('connect')) 
 
 @app.route('/receive',methods=['POST'])
 def receive_content():
@@ -75,8 +77,12 @@ def receive_content():
     url=uri['url']
     print url
     url_count=r.db('taggem2').table('post').filter({'url':url}).count().run(conn)
+    access=authenticate(uri['apiKey'])
+    if access==0:
+        return "Not authenticated"
+    user=list(r.db('taggem2').table('user').filter({'name':user['name'],'apiKey':uri['apiKey']}).run(conn))
     if url_count>0:
-        return jsonify({"type":'success','message':"already saved"}) 
+        return jsonify({"type":'success','message':"already saved"})
     data=extract(url)
     parsed_uri=urlparse(url)
     domain='{uri.scheme}://{uri.netloc}/'.format(uri=parsed_uri)
@@ -102,6 +108,17 @@ def receive_content():
 
     return jsonify(type='success',message=data)
 
+@app.route('/discover_my_feed')
+def discover_my_feed():
+    #add session here
+    if 'apiKey' in session:
+        feed_url='/feed/'+str(session['apiKey'])
+        profile_url='/profile/'+str(session['apiKey'])
+        my_feed='/myfeed'+str(session['apiKey'])              
+        return render_template('myfeed.html',myfeed=my_feed,feed=feed_url,profile=profile_url,apiKey=session['apiKey'])
+
+    else :
+        return "Not logged in"
 
 
 
@@ -111,8 +128,8 @@ def discover():
     if 'apiKey' in session:
         feed_url='/feed/'+str(session['apiKey'])
         profile_url='/profile/'+str(session['apiKey'])
-                   
-        return render_template('feed.html',feed=feed_url,profile=profile_url,apiKey=session['apiKey'])
+        my_feed='/myfeed'+str(session['apiKey'])              
+        return render_template('feed.html',myfeed=my_feed,feed=feed_url,profile=profile_url,apiKey=session['apiKey'])
 
     else :
         return "Not logged in"
@@ -121,12 +138,28 @@ def discover():
 def feed(apiKey):
     count=r.db('taggem2').table('user').filter({'apiKey':int(apiKey)}).count().run(conn)
     if count>0:
-        post_feed=list(r.db('taggem2').table('post').filter({'apiKey':int(apiKey)}).order_by(r.desc('date')).run(conn))
-        post_feed=list(r.db('taggem2').table('post').filter({'apiKey':int(apiKey)}).run(conn))
+
+        post_feed=list(r.db('taggem2').table('user').filter({'apiKey':int(apiKey)})['follow'][0].eq_join(lambda x:x,r.db('taggem2').table('post'),index='apiKey').run(conn))
+
+        #post_feed=list(r.db('taggem2').table('post').filter({'apiKey':int(apiKey)}).order_by(r.desc('date')).run(conn))
 
         return jsonify({'feed':post_feed})
     else :
         return jsonify({'feed':'error'})
+
+@app.route('/myfeed/<apiKey>')
+def myfeed(apiKey):
+    count=r.db('taggem2').table('user').filter({'apiKey':int(apiKey)}).count().run(conn)
+    if count>0:
+
+        #post_feed=list(r.db('taggem2').table('user').filter({'apiKey':int(apiKey)})['follow'][0].eq_join(lambda x:x,r.db('taggem2').table('post'),index='apiKey').run(conn))
+
+        post_feed=list(r.db('taggem2').table('post').filter({'apiKey':int(apiKey)}).order_by(r.desc('date')).run(conn))
+
+        return jsonify({'feed':post_feed})
+    else :
+        return jsonify({'feed':'error'})
+
 
 
 
@@ -172,15 +205,25 @@ def logout():
 def followers(apiKey):
     access=authenticate(apiKey)
     if access==1:
-        followers=list(r.db('taggem2').table('followers').filter({'apiKey':apiKey}).run(conn))
-        return jsonify({'followers':followers})
+        followers=r.db('taggem2').table('user').filter({'apiKey':apiKey})['follow'][0].eq_join(lambda x: x,r.db('taggem2').table('user'),index='apiKey').zip().run(conn)
+        count=len(followers)
+        return jsonify({'followers':followers,'count':count})
     else:
         return 0
 
 
-@app.route('/connect')
+@app.route('/connect',methods=['GET','POST'])
 def connect():
-    return render_template('/connect.html')
+    if request.method=='GET': 
+        return render_template('connect.html',user=None,msg='')
+    if request.method=='POST':
+        email=request.form['search']
+        count=r.db('taggem2').table('user').filter({'email':email}).count().run(conn)
+        if count >0:
+            user=list(r.db('taggem2').table('user').filter({'email':email}).run(conn))
+            return render_template('connect.html',user=user[0],msg=None)
+        else :
+            return render_template('connect.html',user=None,msg="No user found")
 
 
 #footer links ################################################################################
