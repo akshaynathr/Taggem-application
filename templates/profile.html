@@ -3,7 +3,8 @@
 <head>
 	<title>Taggem.</title>
 	<link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css"/>
-
+<link rel="stylesheet" type="text/css" href="{{ url_for('static',filename='css/dropdown.css')}}"/>
+   
 
 	<style type="text/css">
 	body { overflow-x:hidden; width: 100%;}
@@ -26,7 +27,15 @@
 <h3 class = "inline"> Taggem </h3>
 
 <input type="text" class="form-control inline"  style="width:50%" placeholder="Search" />
-<ul class="inline top_menu"> <li class="inline" > <a href="#">Feed</a> </li> <li class="inline"> <a href="#"> Profile</a> </li> </ul>
+<ul class="inline top_menu"> <li class="inline" > <a href='/discover_page'>Feed</a> <li class="inline" > <a href='/discover_my_feed'>My Tags</a> </li> </li> <li class="inline"> <a href="{{profile}}"> Profile</a> </li></ul>
+<div class="dropdown">
+    <span class="glyphicon glyphicon-chevron-down"></span> 
+  <div class="dropdown-content">
+    <a href="/settings">Settings</a>
+    <a href="/logout">Logout</a>
+
+  </div>
+</div>
 
 </nav>
 
@@ -78,19 +87,19 @@
               </div>
               <div class="row">
                 <div class="col-md-6">
-                  <span class="text-muted">Email:</span> email@test.com<br>
-                  <span class="text-muted">Birth date:</span> 01.01.2001<br>
-                  <span class="text-muted">Gender:</span> male<br><br>
-                  <small class="text-muted">Created: 01.01.2015</small>
+                  <span class="text-muted">Email:</span> {{user.email}}<br>
+                  <span class="text-muted">Birth date:</span> {{user.dob}}<br>
+                  <span class="text-muted">Gender:</span> {{user.gender}}<br><br>
+                  <small class="text-muted">Joined: {{user.date}}</small>
                 </div>
-                <div class="col-md-6">
+                <!-- <div class="col-md-6">
                   <div class="activity-mini">
                     <i class="glyphicon glyphicon-comment text-muted"></i> 500
                   </div>
                   <div class="activity-mini">
                     <i class="glyphicon glyphicon-thumbs-up text-muted"></i> 1500
                   </div>
-                </div>
+                </div> -->
               </div>
             </div>
           </div>
@@ -108,6 +117,5 @@
 
 <script   src="https://code.jquery.com/jquery-2.2.4.min.js"   integrity="sha256-BbhdlvQf/xTY9gja0Dq3HiwQF8LaCRTXxZKRutelT44="   crossorigin="anonymous"></script>
 <script type="text/javascript" src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
-<script type='text/javascript'src="static/js/feed.js"></script>
 </body>
 </html>
