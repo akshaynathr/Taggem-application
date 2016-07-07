@@ -1,8 +1,9 @@
 from flask import Flask,jsonify,request,render_template,url_for, redirect,flash,session,flash
+from werkzeug import secure_filename
 from urlparse import urlparse
 import rethinkdb as r
 import json
-
+import os
 app=Flask(__name__)
 app.config['SECRET_KEY']='2312ghas'
 from models import dbSetUp
@@ -57,13 +58,26 @@ def signup():
         dob=request.form['dob']
         name=request.form['name']
 
-        count=r.db('taggem2').table('user').filter({'username':username,'password':password}).count().run(conn)
+
+
+    # Get the name of the uploaded file
+        file = request.files['file']
+        filename=''
+        # Check if the file is one of the allowed types/extensions
+        if file and allowed_file(file.filename):
+            # Make the filename safe, remove unsupported chars
+            filename = secure_filename(file.filename)
+            filename=username+filename.rsplit('.', 1)[1]
+            # Move the file form the temporal folder to
+            # the upload folder we setup
+            file.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
+            count=r.db('taggem2').table('user').filter({'username':username,'password':password}).count().run(conn)
         if count >0:
             result="Welcome  back "+ name 
             return result
         else :
             try:
-                user=r.db('taggem2').table('user').insert({'username':username,'email':email,'dob':dob,'password':password,'name':name,'apiKey':r.random(1000000),'follow':[],'date':r.now()}).run(conn)
+                user=r.db('taggem2').table('user').insert({'username':username,'email':email,'dob':dob,'password':password,'name':name,'apiKey':r.random(1000000),'follow':[],'date':r.now(),'img':filename}).run(conn)
                 user_data=list(r.db('taggem2').table('user').filter((r.row['username']==username) & (r.row['password']==password)).run(conn))
                 session['apiKey']=user_data[0]['apiKey']
                 
@@ -192,7 +206,8 @@ def profile(apiKey):
     if access ==1:
         user=list(r.db('taggem2').table('user').filter({'apiKey':int(apiKey)}).run(conn))
         print user
-        return render_template('profile.html',user=user[0])
+        img='uploads/'+user[0]['img']
+        return render_template('profile.html',img=img,user=user[0])
     else:
         return "Not logged in "
 
@@ -223,7 +238,8 @@ def connect():
         count=r.db('taggem2').table('user').filter({'email':email}).count().run(conn)
         if count >0:
             user=list(r.db('taggem2').table('user').filter({'email':email}).run(conn))
-            return render_template('connect.html',user=user[0],msg=None)
+            img='uploads/'+user[0]['img']
+            return render_template('connect.html',user=user[0],msg='',img=img)
         else :
             return render_template('connect.html',user=None,msg="No user found")
 
@@ -257,3 +273,17 @@ def authentication():
         #print (data.password)
         user=list(r.db('taggem2').table('user').filter({'username':data['username'], 'password':data['password']}).run(conn))
         return  jsonify({'result':user[0]['apiKey']})
+
+
+############################################################################
+########## image upload ##############################################
+
+# This is the path to the upload directory
+app.config['UPLOAD_FOLDER'] = 'uploads/'
+# These are the extension that we are accepting to be uploaded
+app.config['ALLOWED_EXTENSIONS'] = set([ 'png', 'jpg', 'jpeg'])
+
+# For a given file, return whether it's an allowed type or not
+def allowed_file(filename):
+    return '.' in filename and  filename.rsplit('.', 1)[1] in app.config['ALLOWED_EXTENSIONS']
+
