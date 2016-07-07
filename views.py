@@ -82,7 +82,7 @@ def receive_content():
     access=authenticate(uri['apiKey'])
     if access==0:
         return "Not authenticated"
-    user=list(r.db('taggem2').table('user').filter({'name':user['name'],'apiKey':uri['apiKey']}).run(conn))
+    user=list(r.db('taggem2').table('user').filter({'apiKey':uri['apiKey']}).run(conn))
     if url_count>0:
         return jsonify({"type":'success','message':"already saved"})
     data=extract(url)
@@ -98,7 +98,7 @@ def receive_content():
 
         try:
             
-            r.db('taggem2').table('post').insert({'domain':domain,'img_url':data['image'],'url':data['url'],'summary':data['summary'],'keywords':data['keywords'],'authors':data['authors'],'apiKey':uri['apiKey'],'title':data['title'],'text':data['text'],'html':data['html'],'date':r.now(),'views':0,'user-name':user['name'],'user-img':user['img']}).run(conn)
+            r.db('taggem2').table('post').insert({'domain':domain,'img_url':data['image'],'url':data['url'],'summary':data['summary'],'keywords':data['keywords'],'authors':data['authors'],'apiKey':uri['apiKey'],'title':data['title'],'text':data['text'],'html':data['html'],'date':r.now(),'views':0,'user-name':user[0]['name'],'user-img':''}).run(conn)
 
         except Exception as e:
             error="Database error:"+str(e)
@@ -240,3 +240,20 @@ def jobs():
 @app.route('/ads')
 def  ads():
     return render_template('footer/ads.html')
+
+
+
+
+#######################plugin login ##################
+@app.route('/oauth')
+def auth():
+    return render_template('auth.html')
+
+@app.route('/authentication',methods=['POST'])
+def authentication():
+    if request.method=='POST':
+        data=json.loads(request.data)
+        print (data)
+        #print (data.password)
+        user=list(r.db('taggem2').table('user').filter({'username':data['username'], 'password':data['password']}).run(conn))
+        return  jsonify({'result':user[0]['apiKey']})
