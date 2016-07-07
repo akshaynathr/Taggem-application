@@ -9,6 +9,8 @@ def dbSetUp():
     try:
         r.db_create('taggem2').run(connection)
         r.db('taggem2').table_create('user').run(connection)
+        r.db('taggem2').table('user').index_create('apiKey').run(conn)
+        r.db('taggem2').table('post').index_create('apiKey').run(conn)
         r.db('taggem2').table_create('post').run(connection)
         print("Database setup completed")
     except RqlRuntimeError:
