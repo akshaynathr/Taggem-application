@@ -116,7 +116,7 @@ h5{ color: rgba(255,255,255,.9);}
 <div class="col-md-8" style=" background-color:rgba(0,0,0,.2); color:#fff;"> 
 
 <div class="user block col-md-8" style="text-align:center;padding:5px; ">
-<img src={{user.img_url }} style="width:50px; height=50px;">
+<img src={{ url_for('static',filename=img )}} style="width:100px; height=100px;">
 <h4 class="inline"> {{user.name}}</h4><button class =" btn btn-danger" id='{{user.apiKey }}'>Follow</button>
 
 <h5 style="color:#000;"  > Email:{{user.email}}</h5> 
