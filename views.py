@@ -56,6 +56,7 @@ def signup():
         email=request.form['email']
         dob=request.form['dob']
         name=request.form['name']
+
         count=r.db('taggem2').table('user').filter({'username':username,'password':password}).count().run(conn)
         if count >0:
             result="Welcome  back "+ name 
@@ -64,10 +65,11 @@ def signup():
             try:
                 user=r.db('taggem2').table('user').insert({'username':username,'email':email,'dob':dob,'password':password,'name':name,'apiKey':r.random(1000000),'follow':[],'date':r.now()}).run(conn)
                 user_data=list(r.db('taggem2').table('user').filter((r.row['username']==username) & (r.row['password']==password)).run(conn))
-                session['apiKey']=user_data['apiKey']
+                session['apiKey']=user_data[0]['apiKey']
                 
             except Exception as e:
-                return "Error in saving data"
+                result="Error in saving data:"+str(e)
+                return result
             return  redirect(url_for('connect')) 
 
 @app.route('/receive',methods=['POST'])
@@ -96,7 +98,7 @@ def receive_content():
 
         try:
             
-            r.db('taggem2').table('post').insert({'domain':domain,'img_url':data['image'],'url':data['url'],'summary':data['summary'],'keywords':data['keywords'],'authors':data['authors'],'apiKey':uri['apiKey'],'title':data['title'],'text':data['text'],'html':data['html'],'date':r.now(),'views':0}).run(conn)
+            r.db('taggem2').table('post').insert({'domain':domain,'img_url':data['image'],'url':data['url'],'summary':data['summary'],'keywords':data['keywords'],'authors':data['authors'],'apiKey':uri['apiKey'],'title':data['title'],'text':data['text'],'html':data['html'],'date':r.now(),'views':0,'user-name':user['name'],'user-img':user['img']}).run(conn)
 
         except Exception as e:
             error="Database error:"+str(e)
