@@ -113,7 +113,7 @@ def receive_content():
 
         try:
             
-            r.db('taggem2').table('post').insert({'domain':domain,'img_url':data['image'],'url':data['url'],'summary':data['summary'],'keywords':data['keywords'],'authors':data['authors'],'apiKey':uri['apiKey'],'title':data['title'],'text':data['text'],'html':data['html'],'date':r.now(),'views':0,'user-name':user[0]['name'],'user-img':''}).run(conn)
+            r.db('taggem2').table('post').insert({'domain':domain,'img_url':data['image'],'url':data['url'],'summary':data['summary'],'keywords':data['keywords'],'authors':data['authors'],'apiKey':uri['apiKey'],'title':data['title'],'text':data['text'],'html':data['html'],'date':r.now(),'views':0,'user-name':user[0]['name'],'user-img':user[0]['img']}).run(conn)
 
         except Exception as e:
             error="Database error:"+str(e)
@@ -288,3 +288,43 @@ app.config['ALLOWED_EXTENSIONS'] = set([ 'png', 'jpg', 'jpeg'])
 def allowed_file(filename):
     return '.' in filename and  filename.rsplit('.', 1)[1] in app.config['ALLOWED_EXTENSIONS']
 
+####################### follower################################
+
+@app.route('/addFollowers/<int:apiKey1>/<int:apiKey2>')
+def addFollower(apiKey1,apiKey2):
+    access=authenticate(apiKey1)
+    if access==1:
+        access2=authenticate(apiKey2)
+        if access2==1:
+            r.db('taggem2').table('user').filter({'apiKey':apiKey}).update(r.row['follow'].append(apiKey2)).run(conn)
+            return jsonify({'result':'success'})
+        else:
+            return 0
+    else:
+        return 0
+
+'''
+@app.route('/unFollow/<int:apiKey1>/<int:apiKey2>')
+def unfollow(apiKey1,apiKey2):
+    access=authenticate(apiKey1)
+    if access==1:
+        access2=authenticate(apiKey2)
+        if access2==1:
+'''
+
+############################search###########################
+@app.route('/search/<int:apiKey>',methods=['POST'])
+def search(apiKey):
+    data=json.loads(request.data)
+    key=data['key']
+    print key
+    access=authenticate(apiKey)
+    if access==1:
+        try:
+            post=list(r.db('taggem2').table('post').filter(lambda post: post['keywords'].contains(key)).run(conn))
+            return jsonify({'feed':post})
+        except Exception as e:
+            return jsonify({'error':str(e)})
+
+    else :
+        return "No access"
