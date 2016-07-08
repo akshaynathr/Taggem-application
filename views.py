@@ -33,7 +33,8 @@ def login():
             session['apiKey']=user[0]['apiKey']
             return redirect(url_for('discover'))
         else :
-            return "Login error"
+            flash("Login error")
+            return render_template('login.html')
     
 
 

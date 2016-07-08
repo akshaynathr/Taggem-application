@@ -19,6 +19,8 @@
 
 html, body {
   height: 100%;
+  /*background-image: url('static/images/bg.jpg');
+  background-size:cover;*/
   background-color: #F15A5C;
   font-family: "Roboto Slab", serif;
   color: white;
@@ -143,6 +145,16 @@ footer ul li a:hover{ text-decoration: underline;}
 
     <div class='preload login--container'>
 		<h1> Taggem</h1>
+
+    {% with messages = get_flashed_messages() %}
+  {% if messages %}
+    <ul style="list-style:none;">
+    {% for message in messages %}
+      <li>{{ message }}</li>
+    {% endfor %}
+    </ul>
+  {% endif %}
+{% endwith %}
   <div class='login--form'>
 	  <form method="post">
     <div class='login--username-container'>

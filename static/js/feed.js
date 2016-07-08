@@ -25,7 +25,7 @@ $(document).ready(function()
 
 function createAndInsert(data)
 {
-	if(data['feed'].length==0) { alert("Hello. add some friends to get the feed "); intro_insert();}
+	if(data['feed'].length==0) { alert("Hello. add some friends to get the feed "); intro_insert(0);}
 
 		else {
 
@@ -93,8 +93,10 @@ function create(img_url, title,text,url,domain,id,views=0)
 
 
 
-function intro_insert()
+function intro_insert(val)
 {
+	var done0=0,done1=0,done2=0;
+	if (val==0 && done0==0){
 	$('.insert').prepend(
 	 	'<div class="row item top">'+
  	'<div class="col-md-5 left" style="background-image:url(static/images/follow.jpg); background-size:cover;"> </div>'+
@@ -103,14 +105,68 @@ function intro_insert()
 	 			'<!--<a href="#" data-reveal-id="myModal"><h3>Google Allo  </h3></a>-->'+
 '<h3 class="title" >Welcome to Taggem</h3>'+
 
-	 			'<p style="font-style:bold;">Taggem lets you find the best things from web that interests you ,through suggestions and recommendation  from your friends.You can follow anyone in taggem and find those contents that excites you most from the ocean of information i.e internet.<a href="/learn">Learn how to use Taggem  </a></p>'+
+	 			'<p style="font-style:bold;">'+'Taggem lets you find the best things from web that interests you ,'+
+	 			'through suggestions and recommendation  from your friends.You can follow anyone in taggem and '+
+	 			'find those contents that excites you most from the ocean of information i.e internet.</p>'+
+	 			'<a id="learn" href="#" onclick=" intro_insert(1);" >Learn how to use Taggem  </a>'+
+
+			 
+	 		'</div>'+
+	 		
+	 		 
+	 	
+	  '</div> ' );
+	done0=1;
+
+	}
+	else if(val==1 && done1==0)
+	{
+
+
+		$('.insert').prepend(
+	 	'<div class="row item top">'+
+ 	'<div class="col-md-5 left" style="background-image:url(static/images/bg2.png); background-size:cover;"> </div>'+
+	 		 '<div class="col-md-3 right">'+
+	 		 
+	 			'<!--<a href="#" data-reveal-id="myModal"><h3>Google Allo  </h3></a>-->'+
+'<h3 class="title" >Connect</h3>'+
+
+	 			'<p style="font-style:bold;"> Connect and follow your friends.Get everything that they tag from web.You can also follow the best rated taggers in Taggem.</p><a id="learn" href="#" onclick="intro_insert(2);">Learn how to Tag </a>'+
 
 				 
 	 		'</div>'+
 	 		
 	 		 
 	 	
-	  '</div> ' );
+	  '</div> ' );	
+	
+
+	}
+
+	else if(val==2 )
+	{
+
+
+		$('.insert').prepend(
+	 	'<div class="row item top">'+
+ 	'<div class="col-md-5 left" style="background-image:url(static/images/bg3.png); background-size:cover;"> </div>'+
+	 		 '<div class="col-md-3 right">'+
+	 		 
+	 			'<!--<a href="#" data-reveal-id="myModal"><h3>Google Allo  </h3></a>-->'+
+'<h3 class="title" >Taggem</h3>'+
+
+	 			'<p style="font-style:bold;"> Whenever you find something interesting in web,share to your followers by just a press on Taggem chrome extension <a id="learn" href="/extension" ">Download chrome extension</a></p>'+
+
+				 '<h3>HAPPY TAGGING</h3>'+
+	 		'</div>'+
+	 		
+	 		 
+	 	
+	  '</div> ' );	done2=1;
+
+
+	}
+
 
 
 }
