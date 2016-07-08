@@ -25,7 +25,7 @@ $(document).ready(function()
 
 function createAndInsert(data)
 {
-	if(data['feed'].length==0) { alert("Hello. add some friends to get the feed "); intro_insert(0);}
+//	if(data['feed'].length==0) { alert("Hello. add some friends to get the feed "); intro_insert(0);}
 
 		else {
 
