@@ -25,9 +25,14 @@ $(document).ready(function()
 
 function createAndInsert(data)
 {
+	if(data['feed'].length==0) { alert("Hello. add some friends to get the feed "); intro_insert();}
+
+		else {
+
+
 // alert(data['feed'].length);
 for(var i=0;i<data['feed'].length;i++)
-{	var img_url=data['feed'][i]['right']['img_url'];
+  {	var img_url=data['feed'][i]['right']['img_url'];
 	var text=data['feed'][i]['right']['text'];
 	var title=data['feed'][i]['right']['title'];
 	var views=data['feed'][i]['right']['views'];
@@ -38,7 +43,8 @@ for(var i=0;i<data['feed'].length;i++)
 	var _text=text.slice(0,200)+'...';
 	create(img_url, title,_text,url,domain,id,views);
 
-}
+	}
+		}
 }
 
 
@@ -85,3 +91,26 @@ function create(img_url, title,text,url,domain,id,views=0)
 
 }
 
+
+
+function intro_insert()
+{
+	$('.insert').prepend(
+	 	'<div class="row item top">'+
+ 	'<div class="col-md-5 left" style="background-image:url(static/images/follow.jpg); background-size:cover;"> </div>'+
+	 		 '<div class="col-md-3 right">'+
+	 		 
+	 			'<!--<a href="#" data-reveal-id="myModal"><h3>Google Allo  </h3></a>-->'+
+'<h3 class="title" >Welcome to Taggem</h3>'+
+
+	 			'<p style="font-style:bold;">Taggem lets you find the best things from web that interests you ,through suggestions and recommendation  from your friends.You can follow anyone in taggem and find those contents that excites you most from the ocean of information i.e internet.<a href="/learn">Learn how to use Taggem  </a></p>'+
+
+				 
+	 		'</div>'+
+	 		
+	 		 
+	 	
+	  '</div> ' );
+
+
+}
