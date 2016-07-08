@@ -25,7 +25,7 @@ $(document).ready(function()
 
 function createAndInsert(data)
 {
-	if(data['feed'].length==0) {  intro_insert(0);}
+	if(data['feed'].length==0) {/* alert("Hello. add some friends to get the feed ");*/ intro_insert(0);}
 
 		else {
 
@@ -111,12 +111,9 @@ function intro_insert(val)
 	 			'<a id="learn" href="#" onclick=" intro_insert(1);" >Learn how to use Taggem  </a>'+
 
 			 
-	 		'</div>'+
-	 		
-	 		 
+	 		'</div>'+ 	 		 
 	 	
 	  '</div> ' );
-	done0=1;
 
 	}
 	else if(val==1 && done1==0)

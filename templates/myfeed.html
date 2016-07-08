@@ -41,6 +41,7 @@
 	.modal-title { font-size: 2em; font-family: 'Assistant', sans-serif; font-weight: 900;}
 	.modal-body { letter-spacing: .5px;margin-top:1em; font-weight: 400;}
 	.block { display: block; margin-top: 30px;}
+	.modal-body img { width:500px; height: 400px;}
  </style>
 
 
@@ -54,7 +55,7 @@
 <nav class="navbar top_nav">
 <h3 class = "inline"> Taggem </h3>
 
-<input type="text" class="form-control inline"  style="width:50%" placeholder="Search" />
+<input type="text" class="form-control inline" id="search" style="width:50%" placeholder="Search" />
 <p class="inline" id="dummy" style="visibility:hidden;">{{apiKey}} </p>
 <ul class="inline top_menu"> <li class="inline" > <a href='/discover_page'>Feed</a> <li class="inline" > <a href={{myfeed}}>My Tags</a> </li> </li> <li class="inline"> <a href="{{profile}}"> Profile</a> </li></ul>
 <div class="dropdown">
@@ -187,7 +188,10 @@
 <script   src="https://code.jquery.com/jquery-2.2.4.min.js"   integrity="sha256-BbhdlvQf/xTY9gja0Dq3HiwQF8LaCRTXxZKRutelT44="   crossorigin="anonymous"></script>
 <script type="text/javascript" src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
 <script type='text/javascript'src="static/js/myfeed.js"></script>
-<script type='text/javascript'src="static/js/reveal.js"></script>
+ 
+<script type='text/javascript'src="static/js/followers.js"></script>
+<script type='text/javascript'src="static/js/search.js"></script>
+
 <script type="text/javascript">
 	
 
@@ -216,7 +220,7 @@ $('#myModal').modal({show:true});
 function create_modal(data)
 {
 	$('.modal-title').html(data['feed'][0]['title']); 
-	$('#modal_img').attr('src',data['feed'][0]['img_url']);
+	//$('#modal_img').attr('src',data['feed'][0]['img_url']);
 	// $('.data').html(data['feed'][0]['text']);
 
 	$('.modal-body').append(data['feed'][0]['html']);

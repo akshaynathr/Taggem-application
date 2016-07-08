@@ -112,7 +112,8 @@ def receive_content():
     else:
 
         try:
-            
+             
+
             r.db('taggem2').table('post').insert({'domain':domain,'img_url':data['image'],'url':data['url'],'summary':data['summary'],'keywords':data['keywords'],'authors':data['authors'],'apiKey':uri['apiKey'],'title':data['title'],'text':data['text'],'html':data['html'],'date':r.now(),'views':0,'user-name':user[0]['name'],'user-img':user[0]['img']}).run(conn)
 
         except Exception as e:
