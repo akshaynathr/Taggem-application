@@ -68,7 +68,7 @@ def signup():
         if file and allowed_file(file.filename):
             # Make the filename safe, remove unsupported chars
             filename = secure_filename(file.filename)
-            filename=username+filename.rsplit('.', 1)[1]
+            filename=username+'.'+filename.rsplit('.', 1)[1]
             # Move the file form the temporal folder to
             # the upload folder we setup
             file.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
@@ -85,7 +85,7 @@ def signup():
             except Exception as e:
                 result="Error in saving data:"+str(e)
                 return result
-            return  redirect(url_for('connect')) 
+            return  redirect(url_for('discover')) 
 
 @app.route('/receive',methods=['POST'])
 def receive_content():
@@ -105,6 +105,7 @@ def receive_content():
     domain='{uri.scheme}://{uri.netloc}/'.format(uri=parsed_uri)
 
     if not URL_REGEX.match(url):
+        print "hello"
         return jsonify({
               'type': 'error',
               'message': 'Invalid URL'
@@ -112,7 +113,7 @@ def receive_content():
     else:
 
         try:
-             
+
 
             r.db('taggem2').table('post').insert({'domain':domain,'img_url':data['image'],'url':data['url'],'summary':data['summary'],'keywords':data['keywords'],'authors':data['authors'],'apiKey':uri['apiKey'],'title':data['title'],'text':data['text'],'html':data['html'],'date':r.now(),'views':0,'user-name':user[0]['name'],'user-img':user[0]['img']}).run(conn)
 
@@ -132,7 +133,7 @@ def discover_my_feed():
     if 'apiKey' in session:
         feed_url='/feed/'+str(session['apiKey'])
         profile_url='/profile/'+str(session['apiKey'])
-        my_feed='/myfeed'+str(session['apiKey'])              
+        my_feed='/myfeed/'+str(session['apiKey'])              
         return render_template('myfeed.html',myfeed=my_feed,feed=feed_url,profile=profile_url,apiKey=session['apiKey'])
 
     else :
@@ -281,7 +282,7 @@ def authentication():
 ########## image upload ##############################################
 
 # This is the path to the upload directory
-app.config['UPLOAD_FOLDER'] = 'uploads/'
+app.config['UPLOAD_FOLDER'] = 'static/uploads/'
 # These are the extension that we are accepting to be uploaded
 app.config['ALLOWED_EXTENSIONS'] = set([ 'png', 'jpg', 'jpeg'])
 
