@@ -15,8 +15,9 @@ function followers(link)
         	{	 
         		name=data['followers'][i]['name'];
         		email=data['followers'][i]['email'];
+        		img=data['followers'][i]['img'];
         		//alert(email);
-        		followers_insert(name,email);
+        		followers_insert(name,email,img);
 
         	}
 
@@ -33,10 +34,10 @@ function followers(link)
 }
 
 
-function followers_insert(name,email)
+function followers_insert(name,email,img)
 {
 	$('.mm').prepend('<div class="row block" style="border-top:1px rgba(255,255,255,.6) solid;color:#fff; text-align:center;padding:10px;">'+
-		'<img src="#"   style="width:100px; height:100px;"/>'+'<h4  >'+name+ '</h4>'+'<h5 class="inline"> Email:'+email+' </h5>'+ '<button class="btn btn-danger inline">Unfollow</button>'+
+		'<img src="/static/uploads/'+img+'"   style="width:100px; height:100px;"/>'+'<h4  >'+name+ '</h4>'+'<h5 class="inline"> Email:'+email+' </h5>'+ '<button class="btn btn-danger inline">Unfollow</button>'+
 
      '</div>'  	 );
 }

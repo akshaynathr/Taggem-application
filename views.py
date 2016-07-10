@@ -43,7 +43,7 @@ def login():
 def signup_form():
     if request.method=='GET':
         return render_template('signup.html')
- 
+
     if request.method=='POST':
         return redirect(url_for('signup'))
 
@@ -235,16 +235,26 @@ def followers(apiKey):
 @app.route('/connect',methods=['GET','POST'])
 def connect():
     if request.method=='GET': 
-        return render_template('connect.html',user=None,msg='')
+        profile='/profile/'+str(session['apiKey'])
+        return render_template('connect.html',user=None,msg='',profile=profile)
     if request.method=='POST':
-        email=request.form['search']
-        count=r.db('taggem2').table('user').filter({'email':email}).count().run(conn)
+        apiKey=session['apiKey']
+
+        name=request.form['search']
+        matchkey="(?i)^"+name+"$"
+        count=r.db('taggem2').table('user').filter((lambda doc:(doc['name'].match(name)) & (doc['apiKey']!=apiKey))).count().run(conn) 
+        #count=r.db('taggem2').table('user').filter({'email':email}).count().run(conn)
         if count >0:
-            user=list(r.db('taggem2').table('user').filter({'email':email}).run(conn))
-            img='uploads/'+user[0]['img']
-            return render_template('connect.html',user=user[0],msg='',img=img)
+            print "Entered"
+            user=list(r.db('taggem2').table('user').filter(lambda doc:(doc['name'].match(name)) & (doc['apiKey']!=apiKey)).run(conn) )
+            #user=list(r.db('taggem2').table('user').filter({'name':name}).run(conn))
+            msg=str(count)+' users found'
+            profile='/profile/'+str(session['apiKey'])
+            return render_template('connect.html',user=user,msg='',profile=profile,apiKey=session['apiKey'])
+
         else :
-            return render_template('connect.html',user=None,msg="No user found")
+            return render_template('connect.html',user=None,msg="No user found",profile=profile,apiKey=session['apiKey'])
+
 
 
 #footer links ################################################################################
@@ -292,13 +302,14 @@ def allowed_file(filename):
 
 ####################### follower################################
 
-@app.route('/addFollowers/<int:apiKey1>/<int:apiKey2>')
+@app.route('/addFollowers/<int:apiKey1>/<int:apiKey2>',methods=['POST'])
 def addFollower(apiKey1,apiKey2):
     access=authenticate(apiKey1)
     if access==1:
         access2=authenticate(apiKey2)
         if access2==1:
-            r.db('taggem2').table('user').filter({'apiKey':apiKey}).update(r.row['follow'].append(apiKey2)).run(conn)
+            user=list(r.db('taggem2').table('user').filter({'apiKey':apiKey1}).update({'follow':r.row['follow'].append(apiKey2)}).run(conn))
+            print user
             return jsonify({'result':'success'})
         else:
             return 0
@@ -330,3 +341,14 @@ def search(apiKey):
 
     else :
         return "No access"
+
+
+###################################################################
+
+########################users list ##############################3
+@app.route('/allusers/<int:apiKey>')
+def allusers(apiKey):
+    users=list(r.db('taggem2').table('user').filter(r.row['apiKey']!=apiKey).run(conn))
+    return jsonify({'users':users})
+
+

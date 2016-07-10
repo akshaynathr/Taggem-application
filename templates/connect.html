@@ -72,6 +72,8 @@ h5{ color: rgba(255,255,255,.9);}
 
 </head>
 <body>
+<p class="inline" id="dummy" style="display:none;visibility:hidden;">{{apiKey}}</p>
+
 <div class="row" style="paddin:10px;">
 <nav class="navbar top_nav">
 <h3 class = "inline" style="margin-left:2%;"> Taggem </h3>
@@ -94,17 +96,17 @@ h5{ color: rgba(255,255,255,.9);}
  -->
  <form class="navbar-form " method="post" style="padding-left:0px;"  role="search">
     <div class="input-group add-on" style="width:100%;">
-      <input class="form-control"  placeholder="Search with Email id " name="search" id="srch-term" type="text">
+      <input class="form-control"  placeholder="Search name " name="search" id="srch-term" type="text">
       <div class="input-group-btn">
-        <button class="btn btn-default" id="search" type="submit"><i class="glyphicon glyphicon-search"></i></button>
+        <button class="btn btn-primary" id="search" type="submit"><i class="glyphicon glyphicon-search"></i></button>
       </div>
     </div>
   </form>
 <h4>{{ msg }} </h4>
-
+<!--
 <ul style="list-style:none;" >
 <li class="btn btn-primary inline" >See the top Taggers</li>
-<li class="btn btn-primary inline">Connect fb</li>
+<li class="btn btn-primary inline">Connect fb</li>-->
  </div>
 
 <div class="col-md-2"></div>
@@ -117,14 +119,18 @@ h5{ color: rgba(255,255,255,.9);}
 <h4> </h4>
 {% if user %}
 <div class="col-md-2"></div>
-<div class="col-md-8" style=" background-color:rgba(0,0,0,.2); color:#fff;"> 
+<div class="col-md-8" style=""> 
+{% for u in user %}
+<div class="user block col-md-4" style="text-align:center;padding:5px;margin-right:1px;  background-color:rgba(0,0,0,.2); color:#fff;">
+<img src={{ url_for('static',filename='uploads/'+u.img )}} style="width:100px; height:100px;margin-right:1px;" class="inline">
+<h4 class=""> {{u.name}}</h4> 
 
-<div class="user block col-md-8" style="text-align:center;padding:5px; ">
-<img src={{ url_for('static',filename=img )}} style="width:100px; height=100px;">
-<h4 class="inline"> {{user.name}}</h4><button class =" btn btn-danger" id='{{user.apiKey }}'>Follow</button>
+<h5 style="color:#000;" class="" > Email:{{u.email}}</h5> 
 
-<h5 style="color:#000;"  > Email:{{user.email}}</h5> 
+<button class =" btn btn-danger" id='{{u.apiKey }}' onclick=addfollower(this);>Follow</button>
+
 </div>
+{% endfor %}
 </div>
 
 {% endif %}
@@ -143,6 +149,26 @@ h5{ color: rgba(255,255,255,.9);}
 
 <script   src="https://code.jquery.com/jquery-2.2.4.min.js"   integrity="sha256-BbhdlvQf/xTY9gja0Dq3HiwQF8LaCRTXxZKRutelT44="   crossorigin="anonymous"></script>
 <script type="text/javascript" src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
- 
+<script>
+	function addfollower(btn)
+{var url='http://localhost:5000/addFollowers/';
+
+		
+	var userApiKey=$('#dummy').html();
+		var apiKey=btn.id;
+		url=url+userApiKey+'/'+apiKey;
+		alert(url);
+		$.ajax({
+				url:url,
+				type:'POST',
+				success:function (data) { alert(JSON.stringify(data));},
+				error:function(data) { alert('error');}
+				
+		
+			});
+}
+
+
+</script>
 </body>
 </html>
