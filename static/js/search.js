@@ -19,7 +19,7 @@
 
 			dataType:'json',
 			data:JSON.stringify(data),
-			success:function(data){ alert(JSON.stringify(data));  $('.insert').empty(); createAndInsert(data);},
+			success:function(data){ alert(JSON.stringify(data));  $('.insert').empty(); createAndInsertFeed(data);},
 			error:function(data){ alert(JSON.stringify(data));},
 			contentType:'application/json'
 
@@ -44,11 +44,11 @@
 
 
 
-function createAndInsert(data)
+function createAndInsertFeed(data)
 {
-	if(data['feed'].length==0) {/* alert("Hello. add some friends to get the feed ");*/ intro_insert(0);}
+	if(data['feed'].length==0) {  /* alert("Hello. add some friends to get the feed ");*/ }
 
-		else {
+		else  {
 
 
 // alert(data['feed'].length);
@@ -60,13 +60,8 @@ for(var i=0;i<data['feed'].length;i++)
 	var url=data['feed'][i]['url'];
 	var domain=data['feed'][i]['domain'];
 	var id=data['feed'][i]['id'];
-	try{	
 	var _text=text.slice(0,200)+'...';
-	}
-	catch(e)
-	{
-		console.log("error:"+e.toString());
-	}
+	//_text=text;
 	create(img_url, title,_text,url,domain,id,views);
 
 	}
