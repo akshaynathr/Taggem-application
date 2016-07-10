@@ -57,7 +57,7 @@
 <div class="dropdown">
     <span class="glyphicon glyphicon-chevron-down"></span> 
   <div class="dropdown-content">
-    <a href="/settings">Settings</a>
+	  <!--<a href="/settings">Settings</a>-->
     <a href="/logout">Logout</a>
 
   </div>
@@ -71,7 +71,7 @@
 
 
 	<div style="position:fixed; text-align:left;" class="left_bar">
-	<a href="#myModal2" class="block" onclick="followers(this);" id="follower" data-toggle='modal'> Followers</a> 
+	<a href="#myModal2" class="block" onclick="followers(this);" id="follower" data-toggle='modal'> Following</a> 
 	<a href="/connect" class="block" id="Connect"  > Connect </a> 
 	</div> 
 
@@ -215,7 +215,7 @@ function create_modal(data)
 	$('.modal-body').append(data['feed'][0]['text']);
 	$('.modal-link').attr('href',data['feed'][0]['url']);
 }
- 
+</script>
 <script>
   (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
   (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
@@ -228,6 +228,5 @@ function create_modal(data)
 </script>
 
 
-</script>
 </body>
 </html>

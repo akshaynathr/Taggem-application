@@ -48,6 +48,13 @@ alert(apiKey);
 
 function createAndInsert(data)
 {
+	if(data['feed'].length==0)
+	{
+		//alert("None");
+		 $('.insert').prepend("<p>No tags yet. Download our chrome plugin and start tagging</p>");
+	 
+	}
+	else {
 // alert(data['feed'].length);
 for(var i=0;i<data['feed'].length;i++)
 {	var img_url=data['feed'][i]['img_url'];
@@ -62,6 +69,7 @@ for(var i=0;i<data['feed'].length;i++)
 	var _text=text.slice(0,200)+'...';
 	create(img_url, title,_text,url,domain,id,date,views);
 
+}
 }
 }
 

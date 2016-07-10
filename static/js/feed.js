@@ -32,16 +32,17 @@ function createAndInsert(data)
 
 // alert(data['feed'].length);
 for(var i=0;i<data['feed'].length;i++)
-  {	var img_url=data['feed'][i]['right']['img_url'];
+  { var img_url=data['feed'][i]['right']['img_url'];
 	var text=data['feed'][i]['right']['text'];
 	var title=data['feed'][i]['right']['title'];
 	var views=data['feed'][i]['right']['views'];
 	var url=data['feed'][i]['right']['url'];
 	var domain=data['feed'][i]['right']['domain'];
 	var id=data['feed'][i]['right']['id'];
-	
+	var name=data['feed'][i]['right']['user-name'];
+		
 	var _text=text.slice(0,200)+'...';
-	create(img_url, title,_text,url,domain,id,views);
+	create(img_url, title,_text,url,domain,id,name,views);
 
 	}
 		}
@@ -60,13 +61,13 @@ $('#myModal').on('hidden.bs.modal', function () {
 });
 
 
-function create(img_url, title,text,url,domain,id,views=0)
+function create(img_url, title,text,url,domain,id,name,views=0)
 
 {
 	 $('.insert').prepend(
 	 	'<div class="row item top">'+
 
-	 		'<span class="label" style="color:rgba(0,0,0,.8);">Recommended by'+'Anand'+'</span><br/>'+
+	 		'<span class="label" style="color:rgba(0,0,0,.8);">Recommended by'+name+'</span><br/>'+
 	 		'<div class="col-md-5 left" style="background-image:url('+img_url+'); background-size:cover;"> </div>'+
 	 		'<div class="col-md-3 right">'+
 	 		'<span class="label">Story from <a href="'+url+'" ><i>'+domain+'</a></i></span>'+

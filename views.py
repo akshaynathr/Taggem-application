@@ -204,15 +204,19 @@ def authenticate(apiKey):
 
 @app.route('/profile/<apiKey>')
 def profile(apiKey):
-    print apiKey
-    access=authenticate(apiKey)
-    if access ==1:
-        user=list(r.db('taggem2').table('user').filter({'apiKey':int(apiKey)}).run(conn))
-        print user
-        img='uploads/'+user[0]['img']
-        return render_template('profile.html',img=img,user=user[0])
+    if 'apiKey' in session:
+        print apiKey
+        access=authenticate(apiKey)
+        if access ==1:
+            user=list(r.db('taggem2').table('user').filter({'apiKey':int(apiKey)}).run(conn))
+            print user
+            img='uploads/'+user[0]['img']
+            return render_template('profile.html',img=img,user=user[0])
+        else:
+            return "Not logged in "
     else:
-        return "Not logged in "
+        return "Not logged in"
+
 
 @app.route('/logout')
 def logout():
@@ -234,26 +238,29 @@ def followers(apiKey):
 
 @app.route('/connect',methods=['GET','POST'])
 def connect():
-    if request.method=='GET': 
-        profile='/profile/'+str(session['apiKey'])
-        return render_template('connect.html',user=None,msg='',profile=profile)
-    if request.method=='POST':
-        apiKey=session['apiKey']
-
-        name=request.form['search']
-        matchkey="(?i)^"+name+"$"
-        count=r.db('taggem2').table('user').filter((lambda doc:(doc['name'].match(name)) & (doc['apiKey']!=apiKey))).count().run(conn) 
-        #count=r.db('taggem2').table('user').filter({'email':email}).count().run(conn)
-        if count >0:
-            print "Entered"
-            user=list(r.db('taggem2').table('user').filter(lambda doc:(doc['name'].match(name)) & (doc['apiKey']!=apiKey)).run(conn) )
-            #user=list(r.db('taggem2').table('user').filter({'name':name}).run(conn))
-            msg=str(count)+' users found'
+    if 'apiKey' in session:
+        if request.method=='GET': 
             profile='/profile/'+str(session['apiKey'])
-            return render_template('connect.html',user=user,msg='',profile=profile,apiKey=session['apiKey'])
+            return render_template('connect.html',user=None,msg='',profile=profile)
+        if request.method=='POST':
+            apiKey=session['apiKey']
 
-        else :
-            return render_template('connect.html',user=None,msg="No user found",profile=profile,apiKey=session['apiKey'])
+            name=request.form['search']
+            matchkey="(?i)^"+name+"$"
+            count=r.db('taggem2').table('user').filter((lambda doc:(doc['name'].match(name)) & (doc['apiKey']!=apiKey))).count().run(conn) 
+            #count=r.db('taggem2').table('user').filter({'email':email}).count().run(conn)
+            if count >0:
+                print "Entered"
+                user=list(r.db('taggem2').table('user').filter(lambda doc:(doc['name'].match(name)) & (doc['apiKey']!=apiKey)).run(conn) )
+                #user=list(r.db('taggem2').table('user').filter({'name':name}).run(conn))
+                msg=str(count)+' users found'
+                profile='/profile/'+str(session['apiKey'])
+                return render_template('connect.html',user=user,msg='',profile=profile,apiKey=session['apiKey'])
+
+            else :
+                return render_template('connect.html',user=None,msg="No user found",profile=profile,apiKey=session['apiKey'])
+    else:
+        return "Not logged in"
 
 
 

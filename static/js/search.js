@@ -1,4 +1,3 @@
- 
 
 
  $("#search").keyup(function (e) {
@@ -44,7 +43,6 @@
 
 
 
- 
 
 function createAndInsert(data)
 {
@@ -55,23 +53,26 @@ function createAndInsert(data)
 
 // alert(data['feed'].length);
 for(var i=0;i<data['feed'].length;i++)
-  {	var img_url=data['feed'][i]['img_url'];
+  { var img_url=data['feed'][i]['img_url'];
 	var text=data['feed'][i]['text'];
 	var title=data['feed'][i]['title'];
 	var views=data['feed'][i]['views'];
 	var url=data['feed'][i]['url'];
 	var domain=data['feed'][i]['domain'];
 	var id=data['feed'][i]['id'];
-	
+	try{	
 	var _text=text.slice(0,200)+'...';
+	}
+	catch(e)
+	{
+		console.log("error:"+e.toString());
+	}
 	create(img_url, title,_text,url,domain,id,views);
 
 	}
 		}
 }
 
-
- 
 
 
 function create(img_url, title,text,url,domain,id,views=0)
@@ -100,7 +101,6 @@ function create(img_url, title,text,url,domain,id,views=0)
 	  '</div> ' );
 		 
 
- 
 
 
 }
