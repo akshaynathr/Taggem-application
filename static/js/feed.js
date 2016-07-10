@@ -62,12 +62,10 @@ $('#myModal').on('hidden.bs.modal', function () {
 
 
 function create(img_url, title,text,url,domain,id,name,views=0)
-
 {
 	 $('.insert').prepend(
 	 	'<div class="row item top">'+
-
-	 		'<span class="label" style="color:rgba(0,0,0,.8);">Recommended by'+name+'</span><br/>'+
+	 		'<span class="label" style="color:rgba(0,0,0,.8);">Recommended by '+name+'</span><br/>'+
 	 		'<div class="col-md-5 left" style="background-image:url('+img_url+'); background-size:cover;"> </div>'+
 	 		'<div class="col-md-3 right">'+
 	 		'<span class="label">Story from <a href="'+url+'" ><i>'+domain+'</a></i></span>'+
@@ -153,7 +151,7 @@ function intro_insert(val)
 	 			'<!--<a href="#" data-reveal-id="myModal"><h3>Google Allo  </h3></a>-->'+
 '<h3 class="title" >Taggem</h3>'+
 
-	 			'<p style="font-style:bold;"> Whenever you find something interesting in web,share to your followers by just a press on Taggem chrome extension <a id="learn" href="/extension" ">Download chrome extension</a></p>'+
+	 			'<p style="font-style:bold;"> Whenever you find something interesting in web,share to your followers by just a press on Taggem chrome extension <a id="learn" href="https://drive.google.com/file/d/0By8yos6-tmUZa0t5aTAwZXhud1U/view?usp=sharing" >Download chrome extension</a></p>'+
 
 				 '<h3>HAPPY TAGGING</h3>'+
 	 		'</div>'+
