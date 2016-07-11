@@ -316,7 +316,6 @@ def addFollower(apiKey1,apiKey2):
         access2=authenticate(apiKey2)
         if access2==1:
             user=list(r.db('taggem2').table('user').filter({'apiKey':apiKey1}).update({'follow':r.row['follow'].append(apiKey2)}).run(conn))
-            print user
             return jsonify({'result':'success'})
         else:
             return 0
@@ -352,10 +351,10 @@ def search(apiKey):
 
 ###################################################################
 
-########################users list ##############################3
+########################users list ##################################
 @app.route('/allusers/<int:apiKey>')
 def allusers(apiKey):
     users=list(r.db('taggem2').table('user').filter(r.row['apiKey']!=apiKey).run(conn))
     return jsonify({'users':users})
 
-
+#####################################################################
