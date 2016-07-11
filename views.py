@@ -90,19 +90,23 @@ def signup():
 @app.route('/receive',methods=['POST'])
 def receive_content():
    # add post request check 
-    uri=json.loads(request.data)
-    url=uri['url']
-    print url
-    url_count=r.db('taggem2').table('post').filter({'url':url}).count().run(conn)
-    access=authenticate(uri['apiKey'])
-    if access==0:
-        return "Not authenticated"
-    user=list(r.db('taggem2').table('user').filter({'apiKey':uri['apiKey']}).run(conn))
-    if url_count>0:
-        return jsonify({"type":'success','message':"already saved"})
-    data=extract(url)
-    parsed_uri=urlparse(url)
-    domain='{uri.scheme}://{uri.netloc}/'.format(uri=parsed_uri)
+    try:
+    	uri=json.loads(request.data)
+    	url=uri['url']
+    	print url
+    	url_count=r.db('taggem2').table('post').filter({'url':url}).count().run(conn)
+    	access=authenticate(uri['apiKey'])
+    	if access==0:
+		return "Not authenticated"
+    	user=list(r.db('taggem2').table('user').filter({'apiKey':uri['apiKey']}).run(conn))
+    	if url_count>0:
+		return jsonify({"type":'success','message':"already saved"})
+    	data=extract(url)
+    	parsed_uri=urlparse(url)
+    	domain='{uri.scheme}://{uri.netloc}/'.format(uri=parsed_uri)
+    except Exception as e:
+	result="Error:"+str(e)
+	return jsonify({'result':result})
 
     if not URL_REGEX.match(url):
         print "hello"
