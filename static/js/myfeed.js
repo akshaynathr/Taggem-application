@@ -93,8 +93,8 @@ function Create(img_url, title,text,url,domain,id,date,views=0)
 	 	'<div class="row item top">'+
 
 	 		'<span class="label" style="color:rgba(0,0,0,.8);">'+'Added on '+date+'</span><br/>'+
-	 		'<div class="col-md-5 left" style="background-image:url('+img_url+'); background-size:cover;"> </div>'+
-	 		'<div class="col-md-3 right">'+
+	 		'<div class="col-md-5 col-sm-5 col-xs-5 left" style="background-image:url('+img_url+'); background-size:cover;"> </div>'+
+	 		'<div class="col-md-3 col-md-3 col-xs-3 right">'+
 	 		'<span class="label">Story from <a href="'+url+'" ><i>'+domain+'</a></i></span>'+
 	 			'<!--<a href="#" data-reveal-id="myModal"><h3>Google Allo  </h3></a>-->'+
 '<a href="#myMoal" class="title_main" onclick="display(this); " id='+id+' data-toggle="modal"><h3 class="title" >'+title+'</h3></a>'+
