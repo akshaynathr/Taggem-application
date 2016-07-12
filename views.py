@@ -99,8 +99,8 @@ def receive_content():
     	if access==0:
 		return "Not authenticated"
     	user=list(r.db('taggem2').table('user').filter({'apiKey':uri['apiKey']}).run(conn))
-    	if url_count>0:
-		return jsonify({"type":'success','message':"already saved"})
+    	#if url_count>0:
+	#	return jsonify({"type":'success','message':"already saved"})
     	data=extract(url)
     	parsed_uri=urlparse(url)
     	domain='{uri.scheme}://{uri.netloc}/'.format(uri=parsed_uri)
