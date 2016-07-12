@@ -51,7 +51,7 @@ function CreateAndInsert(data)
 	if(data['feed'].length==0)
 	{
 		//alert("None");
-		 $('.insert').prepend("<p>No tags yet. Download our chrome plugin and start tagging</p>");
+		 $('.insert').prepend("<p>No tags yet.All the contents you tag from internet will be available here in My Tags. Download our chrome plugin and start tagging</p>");
 	 
 	}
 	else {
