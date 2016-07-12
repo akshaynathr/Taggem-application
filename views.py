@@ -248,7 +248,8 @@ def connect():
             return render_template('connect.html',user=None,msg='',profile=profile)
         if request.method=='POST':
             apiKey=session['apiKey']
-
+            
+            profile='/profile/'+str(session['apiKey'])
             name=request.form['search']
             matchkey="(?i)^"+name+"$"
             count=r.db('taggem2').table('user').filter((lambda doc:(doc['name'].match(name)) & (doc['apiKey']!=apiKey))).count().run(conn) 
