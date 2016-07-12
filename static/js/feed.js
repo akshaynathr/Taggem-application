@@ -25,14 +25,15 @@ $(document).ready(function()
 
 function createAndInsert(data)
 {
-	if(data['feed'].length==0) {/* alert("Hello. add some friends to get the feed ");*/ intro_insert(0);}
+	if(data['feed'].length==0) {intro_insert(0);}
 
 		else {
 
 
 // alert(data['feed'].length);
 for(var i=0;i<data['feed'].length;i++)
-  { var img_url=data['feed'][i]['right']['img_url'];
+  {
+	var img_url=data['feed'][i]['right']['img_url'];
 	var text=data['feed'][i]['right']['text'];
 	var title=data['feed'][i]['right']['title'];
 	var views=data['feed'][i]['right']['views'];
@@ -41,8 +42,8 @@ for(var i=0;i<data['feed'].length;i++)
 	var id=data['feed'][i]['right']['id'];
 	var name=data['feed'][i]['right']['user-name'];
 		
-	var _text=text.slice(0,200)+'...';
-	create(img_url, title,_text,url,domain,id,name,views);
+	var Text=text.slice(0,200)+'...';
+	create(img_url,title,Text,url,domain,name,id,views);
 
 	}
 		}
@@ -61,7 +62,7 @@ $('#myModal').on('hidden.bs.modal', function () {
 });
 
 
-function create(img_url, title,text,url,domain,id,name,views=0)
+function create(img_url,title,text,url,domain,name,id,views)
 {
 	 $('.insert').prepend(
 	 	'<div class="row item top">'+
@@ -77,6 +78,7 @@ function create(img_url, title,text,url,domain,id,name,views=0)
 				        		
 
 	 			'<div class="metrics"> <img class="inline" src="static/images/eyes.png" width="20" height="20" / > <p class="inline">'+views+'</p> </div>'+
+
 
 	 		'</div>'+
 	 		

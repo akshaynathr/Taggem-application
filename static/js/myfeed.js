@@ -7,7 +7,7 @@ $(document).ready(function()
 
 	$.ajax({
         url:url,
-        success:function(data){ /*alert(JSON.stringify(data));*/createAndInsert(data);},
+        success:function(data){ /*alert(JSON.stringify(data));*/CreateAndInsert(data);},
         error:function() { alert("Error loading content. Please refresh the page.");}
 
 		});
@@ -46,7 +46,7 @@ alert(apiKey);
 
 
 
-function createAndInsert(data)
+function CreateAndInsert(data)
 {
 	if(data['feed'].length==0)
 	{
@@ -67,7 +67,7 @@ for(var i=0;i<data['feed'].length;i++)
 	var date=data['feed'][i]['date'];
 	
 	var _text=text.slice(0,200)+'...';
-	create(img_url, title,_text,url,domain,id,date,views);
+	Create(img_url, title,_text,url,domain,id,date,views);
 
 }
 }
@@ -86,7 +86,7 @@ $('#myModal').on('hidden.bs.modal', function () {
 });
 
 
-function create(img_url, title,text,url,domain,id,date,views=0)
+function Create(img_url, title,text,url,domain,id,date,views=0)
 
 {
 	 $('.insert').prepend(

@@ -62,7 +62,7 @@ for(var i=0;i<data['feed'].length;i++)
 	var id=data['feed'][i]['id'];
 	var _text=text.slice(0,200)+'...';
 	//_text=text;
-	create(img_url, title,_text,url,domain,id,views);
+	createSearchResult(img_url, title,_text,url,domain,id,views);
 
 	}
 		}
@@ -70,7 +70,7 @@ for(var i=0;i<data['feed'].length;i++)
 
 
 
-function create(img_url, title,text,url,domain,id,views=0)
+function createSearchResult(img_url, title,text,url,domain,id,views=0)
 
 {
 	 $('.insert').prepend(
