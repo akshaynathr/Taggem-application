@@ -41,6 +41,7 @@ def extract(url):
         title=article.title,
         text=article.text,
         html=article.article_html,
+       # html=article.html,
         image=article.top_image,
         authors=article.authors,
         keywords=article.keywords

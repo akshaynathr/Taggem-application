@@ -63,7 +63,7 @@ $('#myModal').on('hidden.bs.modal', function () {
 
 
 function create(img_url,title,text,url,domain,name,id,views)
-{
+{alert(img_url);
 	 $('.insert').prepend(
 	 	'<div class="row item top">'+
 	 		'<span class="label" style="color:rgba(0,0,0,.8);">Tagged by '+name+'</span><br/>'+
