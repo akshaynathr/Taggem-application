@@ -163,7 +163,8 @@ def feed(apiKey):
     count=r.db('taggem2').table('user').filter({'apiKey':int(apiKey)}).count().run(conn)
     if count>0:
 
-        post_feed=list(r.db('taggem2').table('user').filter({'apiKey':int(apiKey)})['follow'][0].eq_join(lambda x:x,r.db('taggem2').table('post'),index='apiKey').limit(12).run(conn))
+        post_feed=list(r.db('taggem2').table('user').filter({'apiKey':int(apiKey)})['follow'][0].eq_join(lambda x:x,r.db('taggem2').table('post'),index='apiKey').order_by('date',index='views').limit(12).run(conn))
+
 
         #post_feed=list(r.db('taggem2').table('post').filter({'apiKey':int(apiKey)}).order_by(r.desc('date')).run(conn))
 
