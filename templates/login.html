@@ -19,7 +19,7 @@
 
 html, body {
   height: 100%;
-  /*background-image: url('static/images/bg.jpg');
+  background-image: url('static/images/bg.jpg');
   background-size:cover;*/
   background-color: #F15A5C;
   font-family: "Roboto Slab", serif;
@@ -75,7 +75,7 @@ small {
 
 .login--container {
   width: 600px;
-  background-color: #F15A5C;
+  background-color:rgba(0,0,0,.5); #F15A5C;
   margin: 0 auto;
   position: relative;
   top: 25%;
@@ -83,7 +83,7 @@ small {
 
 .login--toggle-container {
   position: absolute;
-  background-color: #F15A5C;
+  /*background-color: #F15A5C;*/
   right: 0;
   line-height: 2.5em;
   width: 50%;
@@ -106,7 +106,7 @@ small {
 
 .login--username-container, .login--password-container {
   float: left;
-  background-color: #F15A5C;
+  /*background-color: #F15A5C;*/
   width: 50%;
   height: 120px;
   padding: 0.5em;
@@ -116,12 +116,12 @@ a { color:#fff; text-decoration:none;}
   transform-origin: 100% 0%;
   transform: perspective(1000px) rotateY(180deg);
   transition: all 1s cubic-bezier(0.06, 0.63, 0, 1);
-  background-color: #bc1012;
+  /*background-color: #bc1012;*/
   backface-visibility: hidden;
 }
 .login--active .login--username-container {
   transform: perspective(1000px) rotateY(0deg);
-  background-color: #F15A5C;
+  /*background-color: #F15A5C;*/
 }
 
 footer {
@@ -143,9 +143,10 @@ footer ul li a:hover{ text-decoration: underline;}
 
   <body>
 
-    <div class='preload login--container'>
+  <div class='preload login--container' style="color:rgba(255,255,255,.9);">
+		<div style="text-align:center;" >
 		<h1 style="display:inline"> Taggem</h1> <h4 style="display:inline;">(beta)</h4>
-
+			</div>
     {% with messages = get_flashed_messages() %}
   {% if messages %}
     <ul style="list-style:none;">
@@ -155,7 +156,7 @@ footer ul li a:hover{ text-decoration: underline;}
     </ul>
   {% endif %}
 {% endwith %}
-  <div class='login--form'>
+  <div class='login--form' style="padding:10px;">
 	  <form method="post">
     <div class='login--username-container'>
       <label>Username</label>
@@ -169,12 +170,14 @@ footer ul li a:hover{ text-decoration: underline;}
     </div>
   </div>
   </form>
-  <div class='login--toggle-container'>
+  <!--<div class='login-toggle-container'>
     <small>Hey you,</small>
     <div class='js-toggle-login'>Login</div>
     <small>here</small>
+  </div> -->
+  <div style="text-align:center">
+  <h4 style="padding:5px;">"Follow the best contents from web that your friends recommend."</h4>
   </div>
-  <h3>Follow the best contents from web that your friends recommend."</h3>
 </div>
 <footer>
 <ul class="footer_list"> <li style="display:inline;"> <a href="/about">About</a> </li>
