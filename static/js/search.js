@@ -19,7 +19,7 @@
 
 			dataType:'json',
 			data:JSON.stringify(data),
-			success:function(data){ alert(JSON.stringify(data));  $('.insert').empty(); createAndInsertFeed(data);},
+			success:function(data){ alert(JSON.stringify(data));  $('.insert').empty(); createAndInsertSearchFeed(data);},
 			error:function(data){ alert(JSON.stringify(data));},
 			contentType:'application/json'
 
@@ -44,7 +44,7 @@
 
 
 
-function createAndInsertFeed(data)
+function createAndInsertSearchFeed(data)
 {
 	if(data['feed'].length==0) {  /* alert("Hello. add some friends to get the feed ");*/ }
 
@@ -62,6 +62,7 @@ for(var i=0;i<data['feed'].length;i++)
 	var id=data['feed'][i]['id'];
 	var _text=text.slice(0,200)+'...';
 	//_text=text;
+	if(img_url.trim()=='') img_url='static/images/img_broken.jpg';
 	createSearchResult(img_url, title,_text,url,domain,id,views);
 
 	}
