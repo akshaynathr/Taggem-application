@@ -151,7 +151,7 @@
             <div class="modal-content">
                 <div class="modal-header">
                     <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                    <h1 class="modal-title inline">Confirmation</h1>
+                    <h1 class="modal-title inline">Loading content..</h1>
                     <a href=" "class="btn-danger modal-link"  target="blank" style="padding:5px; float:right ;">READ FULL STORY</a>
                 </div>
                 <div class="modal-body">
@@ -213,8 +213,9 @@ function create_modal(data)
 	$('.modal-title').html(data['feed'][0]['title']); 
 	//$('#modal_img').attr('src',data['feed'][0]['img_url']);
 	// $('.data').html(data['feed'][0]['text']);
-
+	
 	$('.modal-body').append(data['feed'][0]['html']);
+
 	$('.modal-link').attr('href',data['feed'][0]['url']);
 }
 </script>
