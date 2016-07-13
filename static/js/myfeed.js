@@ -67,6 +67,8 @@ for(var i=0;i<data['feed'].length;i++)
 	var date=data['feed'][i]['date'];
 	
 	var _text=text.slice(0,200)+'...';
+	if(img_url.trim()=='') img_url='static/images/img_broken.jpg';
+	
 	Create(img_url, title,_text,url,domain,id,date,views);
 
 }

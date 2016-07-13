@@ -43,6 +43,7 @@ for(var i=0;i<data['feed'].length;i++)
 	var name=data['feed'][i]['right']['user-name'];
 		
 	var Text=text.slice(0,200)+'...';
+	if (img_url.trim()=='') img_url='static/images/img_broken.jpg';
 	create(img_url,title,Text,url,domain,name,id,views);
 
 	}
