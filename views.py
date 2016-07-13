@@ -192,6 +192,7 @@ def feed_entry(postId,apiKey):
     count=r.db('taggem2').table('user').filter({'apiKey':int(apiKey)}).count().run(conn)
     if count>0:
         post_feed=list(r.db('taggem2').table('post').filter({'id':(postId)}).run(conn))
+        post_count=r.db('taggem2').table('post').filter({'id':(postId)}).update({'views':r.row['views']+1}).run(conn)
 
         return jsonify({'feed':post_feed})
     else :
