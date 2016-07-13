@@ -125,14 +125,18 @@ a { color:#fff; text-decoration:none;}
 }
 
 footer {
+	color:rgba(0,0,0,.5) !important;
   position: absolute;
   bottom: 12px;
-  left: 20px;
+right:20px;
+margin-bottom:10px;
 }
-
-footer ul li { font-size: 15px; padding-left: 10px;}
-footer ul li a:hover{ text-decoration: underline;}
-
+footer ul li a { color:rgba(0,0,0,.5) !important;}
+footer ul li { font-size: 15px; padding-left: 10px;
+	color:rgba(0,0,0,.5) !important;}
+footer ul li a:hover{ text-decoration: underline;
+	color:rgba(0,0,0,.5) !important;
+	}
     </style>
 
     
@@ -149,7 +153,7 @@ footer ul li a:hover{ text-decoration: underline;}
 			</div>
     {% with messages = get_flashed_messages() %}
   {% if messages %}
-    <ul style="list-style:none;">
+    <ul style="list-style:none; padding:10px;">
     {% for message in messages %}
       <li>{{ message }}</li>
     {% endfor %}
@@ -185,7 +189,7 @@ footer ul li a:hover{ text-decoration: underline;}
 <li style="display:inline;"> <a href="/ads">Ads </a></li>
 </ul>
 <ul style="right:10px;">
-<li style="display:inline;"> &copy;Akshaynath R Production </li>
+<li style="display:inline;font-size:10px;"> &copy;Akshaynath R Production </li>
 </ul>
 
 </footer>
