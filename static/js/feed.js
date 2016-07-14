@@ -8,7 +8,7 @@ $(document).ready(function()
 	$.ajax({
         url:url,
         success:function(data){ /*alert(JSON.stringify(data));*/createAndInsert(data);},
-        error:function(data) {alert(data); alert("Error loading content. Please refresh the page.");}
+        error:function(data) {/*alert(JSON.stringify(data));*/ alert("Error loading content. Please refresh the page.");}
 
 		});
 

@@ -165,15 +165,17 @@ def discover():
 def feed(apiKey):
     count=r.db('taggem2').table('user').filter({'apiKey':int(apiKey)}).count().run(conn)
     if count>0:
-
-        post_feed=list(r.db('taggem2').table('user').filter({'apiKey':int(apiKey)})['follow'][0].eq_join(lambda x:x,r.db('taggem2').table('post'),index='apiKey').order_by('date',index='views').limit(12).run(conn))
+	try:
+		post_feed=list(r.db('taggem2').table('user').filter({'apiKey':int(apiKey)})['follow'][0].eq_join(lambda x:x,r.db('taggem2').table('post'),index='apiKey').limit(12).order_by('date').run(conn))
 
 
         #post_feed=list(r.db('taggem2').table('post').filter({'apiKey':int(apiKey)}).order_by(r.desc('date')).run(conn))
 
-        return jsonify({'feed':post_feed})
+		return jsonify({'feed':post_feed})
+	except Exception as e:
+		return jsonify({'feed':str(e)}),400
     else :
-        return jsonify({'feed':'error'})
+        return jsonify({'feed':'error'}),400
 
 @app.route('/myfeed/<apiKey>')
 def myfeed(apiKey):
