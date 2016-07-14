@@ -3,6 +3,7 @@ from werkzeug import secure_filename
 from urlparse import urlparse
 import rethinkdb as r
 import json
+import sys
 import os
 app=Flask(__name__)
 app.config['SECRET_KEY']='2312ghas'
@@ -10,7 +11,7 @@ from models import dbSetUp
 from extractor import extract,URL_REGEX
 # starts database
 dbSetUp()
-
+sys.stdout=open('info.log','w')
 conn=r.connect(host='localhost',port='28015')
 
 @app.route('/',methods=['GET','POST'])
@@ -94,12 +95,14 @@ def receive_content():
     	uri=json.loads(request.data)
     	url=uri['url']
     	print url
-        url_count=r.db('taggem2').table('post').filter({'apiKey':apiKey,url:'url'}).count().run(conn)
+        url_count=r.db('taggem2').table('post').filter((r.row['apiKey']==apiKey) & (r.row['url']==url)).count().run(conn)
     	access=authenticate(uri['apiKey'])
     	if access==0:
 		return "Not authenticated"
     	user=list(r.db('taggem2').table('user').filter({'apiKey':uri['apiKey']}).run(conn))
     	if url_count>0:
+		print "Already posted "+url
+		return "Already posted"
 		return jsonify({"type":'success','message':"already saved"})
 
     	data=extract(url)
@@ -128,7 +131,7 @@ def receive_content():
               'type': 'error',
               'message':  error
         }), 406
-
+    print "Sucess "+url
 
     return jsonify(type='success',message=data)
 
