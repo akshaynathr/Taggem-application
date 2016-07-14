@@ -9,7 +9,7 @@
 	<style type="text/css">
 	body { overflow-x:hidden; width: 100%;}
 .inline { display:inline; }
-.top_nav  { padding:20px; position: fixed; z-index: 10; width: 100%;background-color:#F15A5C ; border-bottom: 1px #e6e6e6 solid;border-radius:0px;}
+.top_nav  { padding:20px; position: fixed; z-index: 10; width: 100%;background-color:rgba(0,0,0,.7);*#F15A5C*/ ; border-bottom: 1px #e6e6e6 solid;border-radius:0px;}
 	 .top { border-top:5px blue solid; }
 
 .top_nav h3 {  color :#fff; font-weight:900; margin-right:10%; }
@@ -70,7 +70,7 @@
     <div class="col-md-9">
       <div class="panel panel-default">
         <div class="panel-body">
-          <div class="row">
+          <div class="row" style="margin-top:10%;">
             <div class="col-md-12 lead">User profile<hr></div>
           </div>
           <div class="row">
@@ -91,6 +91,9 @@
                   <span class="text-muted">Birth date:</span> {{user.dob}}<br>
                   <span class="text-muted">Gender:</span> {{user.gender}}<br><br>
                   <small class="text-muted">Joined: {{user.date}}</small>
+                  <small class="text-muted">Bio: <small>
+                  <small class="text-muted">Interests: <small>
+
                 </div>
                 <!-- <div class="col-md-6">
                   <div class="activity-mini">
