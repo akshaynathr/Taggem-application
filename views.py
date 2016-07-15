@@ -95,7 +95,7 @@ def receive_content():
     	uri=json.loads(request.data)
     	url=uri['url']
     	print url
-        url_count=r.db('taggem2').table('post').filter((r.row['apiKey']==apiKey) & (r.row['url']==url)).count().run(conn)
+        url_count=r.db('taggem2').table('post').filter((r.row['apiKey']==uri['apiKey']) & (r.row['url']==url)).count().run(conn)
     	access=authenticate(uri['apiKey'])
     	if access==0:
 		return "Not authenticated"
