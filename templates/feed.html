@@ -210,13 +210,22 @@ $('#myModal').modal({show:true});
 
 function create_modal(data)
 {
-	$('.modal-title').html(data['feed'][0]['title']); 
-	//$('#modal_img').attr('src',data['feed'][0]['img_url']);
-	// $('.data').html(data['feed'][0]['text']);
-	
-	$('.modal-body').append(data['feed'][0]['html']);
+	if(data['feed'][0]['html'].length<20)
+	{
+var url =data['feed'][0]['url'];
+$("<a>").attr("href", url).attr("target", "_blank")[0].click();
 
-	$('.modal-link').attr('href',data['feed'][0]['url']);
+	}
+
+	else {
+		$('.modal-title').html(data['feed'][0]['title']); 
+		//$('#modal_img').attr('src',data['feed'][0]['img_url']);
+		// $('.data').html(data['feed'][0]['text']);
+		
+		$('.modal-body').append(data['feed'][0]['html']);
+
+		$('.modal-link').attr('href',data['feed'][0]['url']);
+	}
 }
 </script>
 <script charset="UTF-8" src="//cdn.sendpulse.com/js/push/02d44b9462cc95adcfef365cda173ab5_1.js" async></script>
