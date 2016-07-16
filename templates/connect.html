@@ -121,14 +121,14 @@ h5{ color: rgba(255,255,255,.9);}
 <div class="col-md-2"></div>
 <div class="col-md-8" style=""> 
 {% for u in user %}
-<div class="user block col-md-4" style="text-align:center;padding:5px;margin-right:1px;  background-color:rgba(0,0,0,.2); color:#fff;">
-<img src={{ url_for('static',filename='uploads/'+u.img )}} style="width:100px; height:100px;margin-right:1px;" class="inline">
-<h4 class=""> {{u.name}}</h4> 
+<div class="user block col-md-4" style="text-align:center;padding:5px;margin-right:1px; border-radius:5px; background-color:rgba(0,0,0,.1); color:#fff;">
+<img src={{ url_for('static',filename='uploads/'+u.img )}} style="width:100px;border-radius:100%; height:100px;margin-right:1px;" class="inline">
+<h4 class="" style="color:#999;"> {{u.name}}</h4> 
 
-<h5 style="color:#000;" class="" > Email:{{u.email}}</h5> 
+<h5 style="color:#999;" class="" > Email:{{u.email}}</h5> 
 
-<button class =" btn btn-danger" id='{{u.apiKey }}' onclick=addfollower(this);>Follow</button>
-
+<button class =" btn btn-danger" id='{{u.apiKey }}' onclick=addfollower(this);>+ Follow</button>
+<a href="#myModal2" data-toggle="modal">Open </a>
 </div>
 {% endfor %}
 </div>
@@ -141,7 +141,27 @@ h5{ color: rgba(255,255,255,.9);}
 
 
 </div>
-   
+
+<div id="myModal2" class="modal" >
+         <div class="modal-dialog">
+             <div class="modal-content">
+                 <div class="modal-header" style="text-align:center">
+                     <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+					 <h2 class="modal-title inline">Started following</h2>
+
+                 </div>
+                 <div class="modal-body mm" style="height:50%;text-align:center;">
+					 <img src="static/images/tick.png" style="height:50px; width:50px;"/>
+					 <p style="margin-top:5px;color:rgba(0,0,0,.5); "> Now you can see all awesome stuffs tagged by your friend in Feed</p>
+
+                 </div>
+                 <div class="modal-footer">
+
+                 </div>
+             </div>
+         </div>
+     </div>.
+
 </div>	 
 	
 
@@ -163,11 +183,13 @@ h5{ color: rgba(255,255,255,.9);}
 		$.ajax({
 				url:url,
 				type:'POST',
-				success:function (data) { alert(JSON.stringify(data));},
+				success:function (data) {$('#myModal2').modal({show:true});}
+ },
 				error:function(data) { alert('error');}
 				
 		
 			});
+
 }
 
 
