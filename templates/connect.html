@@ -141,7 +141,7 @@ h5{ color: rgba(255,255,255,.9);}
 
 </div>
 
-<div id="myModal2" class="modal" >
+	<div id="myModal2" class="modal" >
          <div class="modal-dialog">
              <div class="modal-content">
                  <div class="modal-header" style="text-align:center">
@@ -160,6 +160,26 @@ h5{ color: rgba(255,255,255,.9);}
              </div>
          </div>
      </div>.
+<div id="myModal3" class="modal" >
+         <div class="modal-dialog">
+             <div class="modal-content">
+                 <div class="modal-header" style="text-align:center">
+                     <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+					 <h2 class="modal-title inline">Error</h2>
+
+                 </div>
+                 <div class="modal-body mm" style="height:50%;text-align:center;">
+					 <img src="static/images/error.png" style="height:50px; width:50px;"/>
+					 <p style="margin-top:5px;color:rgba(0,0,0,.5); "> There has been an error. We apolojize for the inconvenience.Please try again later.</p>
+
+                 </div>
+                 <div class="modal-footer">
+
+                 </div>
+             </div>
+         </div>
+     </div>.
+
 
 </div>	 
 	
@@ -183,7 +203,7 @@ h5{ color: rgba(255,255,255,.9);}
 				url:url,
 				type:'POST',
 				success:function (data) {$('#myModal2').modal({show:true});},
-				error:function(data) { alert('error');}
+				error:function(data) { $('#myModal3').modal({show:true});}}
 				
 		
 			});
