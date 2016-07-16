@@ -128,7 +128,6 @@ h5{ color: rgba(255,255,255,.9);}
 <h5 style="color:#999;" class="" > Email:{{u.email}}</h5> 
 
 <button class =" btn btn-danger" id='{{u.apiKey }}' onclick=addfollower(this);>+ Follow</button>
-<a href="#myModal2" data-toggle="modal">Open </a>
 </div>
 {% endfor %}
 </div>
@@ -172,7 +171,7 @@ h5{ color: rgba(255,255,255,.9);}
 <script>
 	function addfollower(btn)
 {
-	//var url='https://www.taggem.in/addFollowers/';
+	//var url='http://localhost:5000/addFollowers/';
 	var url='https://www.taggem.in/addFollowers/';
 
 		
@@ -183,8 +182,7 @@ h5{ color: rgba(255,255,255,.9);}
 		$.ajax({
 				url:url,
 				type:'POST',
-				success:function (data) {$('#myModal2').modal({show:true});}
- },
+				success:function (data) {$('#myModal2').modal({show:true});},
 				error:function(data) { alert('error');}
 				
 		
