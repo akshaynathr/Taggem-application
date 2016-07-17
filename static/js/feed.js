@@ -1,3 +1,4 @@
+var Global=0;
 $(document).ready(function()
 		{	
 var pagination_count=0;
@@ -7,17 +8,18 @@ getFeed(pagination_count);
 
 $(window).scroll(function() {
 
-	if($(window).scrollTop()+$(window).height()>$(document).height()-500)	{
+	if($(window).scrollTop()+$(window).height()>$(document).height()-500 && Global==1)	{
 	//alert("near bottom");
 	
+$('.insert').append('<img id="loading" style="margin-left:100px;"src="static/images/loader.gif">');
 	getFeed(++pagination_count);
 }
 });
 
 
-$('.insert').empty();
+//$('.insert').empty();
 
-
+$('.insert').append('<img id="loading" style="margin-left:100px;" src="static/images/loader.gif">');
 
 
 });
@@ -43,12 +45,20 @@ function getFeed(no)
 
 function createAndInsert(data)
 {
-	if(data['feed'].length==0) {//intro_insert(0);}
-			}
+
+	if(data['feed'].length==0 && Global==0)
+	{
+		intro_insert(0);
+
+	$('#loading').remove();
+	}
+	
+else	if(data['feed'].length==0 && Global ==1) {//intro_insert(0);}
+	$('#loading').remove();		}
 
 		else {
 
-
+Global=1;
 // alert(data['feed'].length);
 for(var i=0;i<data['feed'].length;i++)
   {
@@ -84,7 +94,7 @@ $('#myModal').on('hidden.bs.modal', function () {
 
 function create(img_url,title,text,url,domain,name,id,views)
 {//alert(img_url);$('.modal-body').empty();
-
+	$('#loading').remove();
 	 $('.insert').append(
 
 	 	'<div class="row item top">'+

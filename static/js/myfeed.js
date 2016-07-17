@@ -1,3 +1,4 @@
+var Global=0;
 $(document).ready(function()
 		{	
 var pagination_count=0;
@@ -10,11 +11,13 @@ $(window).scroll(function() {
 	if($(window).scrollTop()+$(window).height()>$(document).height()-500)	{
 	//alert("near bottom");
 	
+$('.insert').append('<img id="loading" style="margin-left:100px;"src="static/images/loader.gif">');
 	getMyFeed(++pagination_count);
 }
 });
 
 
+$('.insert').append('<img id="loading" style="margin-left:100px;"src="static/images/loader.gif">');
 
 });
 
@@ -61,13 +64,20 @@ function followers(link)
 
 function CreateAndInsert(data)
 {
-	if(data['feed'].length==0 )
+	if(data['feed'].length==0 && Global==0)
 	{
+		$('.insert').append('<h3>No tags yet.When you find anything interesting from web tag that content.It get stored here. To start tagging download our chrome extension</h3>');
+	}
+	else if(data['feed'].length==0 && Global==1)
+	{$('#loading').remove();
 		//alert("None");
-	//	 $('.insert').append("<p>No tags yet.All the contents you tag from internet will be available here in My Tags. Download our chrome plugin and start tagging</p>");
+	//	 $('.insert').append("<p>No tags yet.</p><br/><p>All the contents you tag from internet will be available here in My Tags. Download our chrome plugin and start tagging</p>");
 	 
 	}
 	else {
+Global=1;
+$('#loading').remove();
+
 // alert(data['feed'].length);
 for(var i=0;i<data['feed'].length;i++)
 {	var img_url=data['feed'][i]['img_url'];
@@ -104,6 +114,7 @@ $('#myModal').on('hidden.bs.modal', function () {
 function Create(img_url, title,text,url,domain,id,date,views=0)
 
 {
+	$('#loading').remove();
 	 $('.insert').append(
 	 	'<div class="row item top">'+
 

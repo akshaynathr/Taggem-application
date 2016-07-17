@@ -36,8 +36,8 @@ function followers(link)
 
 function followers_insert(name,email,img)
 {
-	$('.mm').prepend('<div class="row block" style="border-top:1px rgba(255,255,255,.6) solid;color:#fff; text-align:center;padding:10px;">'+
-		'<img src="/static/uploads/'+img+'"   style="width:100px; height:100px;"/>'+'<h4  >'+name+ '</h4>'+'<h5 class="inline"> Email:'+email+' </h5>'+ '<button class="btn btn-danger inline">Unfollow</button>'+
+	$('.mm').prepend('<div class="row block" style="border-top:1px rgba(255,255,255,.6) solid;color:#000; text-align:center;padding:10px;">'+
+		'<img src="/static/uploads/'+img+'"   style="width:100px; height:100px;"/>'+'<h4  >'+name+ '</h4>'+'<h5 class="inline"> Email:'+email+' </h5>'+ 
 
      '</div>'  	 );
 }
