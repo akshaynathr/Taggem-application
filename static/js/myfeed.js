@@ -1,26 +1,28 @@
 $(document).ready(function()
 		{	
-	var url='/myfeed/';
-	var apiKey=$('#dummy').text();
-// alert(apiKey);
-	url=url+apiKey
-
-	$.ajax({
-        url:url,
-        success:function(data){ /*alert(JSON.stringify(data));*/CreateAndInsert(data);},
-        error:function() { alert("Error loading content. Please refresh the page.");}
-
-		});
-
-
-
-
+getMyFeed(0);
 
 
 
 
 });
 
+function getMyFeed(no)
+{
+
+	var url='/myfeed/';
+	var apiKey=$('#dummy').text().trim();
+// alert(apiKey);
+	url=url+apiKey+'/'+no;
+
+	$.ajax({
+        url:url,
+        success:function(data){ /*alert(JSON.stringify(data));*/CreateAndInsert(data);},
+        error:function(data) {alert(JSON.stringify(data)); alert("Error loading content. Please refresh the page.");}
+
+		});
+
+}
 
 
 function followers(link)

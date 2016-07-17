@@ -177,19 +177,21 @@ def feed(apiKey):
     else :
         return jsonify({'feed':'error'}),400
 
-@app.route('/myfeed/<apiKey>')
+@app.route('/myfeed/<apiKey>/<int:no>')
 def myfeed(apiKey):
-    count=r.db('taggem2').table('user').filter({'apiKey':int(apiKey)}).count().run(conn)
-    if count>0:
+    try:
+	    count=r.db('taggem2').table('user').filter({'apiKey':int(apiKey)}).count().run(conn)
+	    if count>0:
 
-        #post_feed=list(r.db('taggem2').table('user').filter({'apiKey':int(apiKey)})['follow'][0].eq_join(lambda x:x,r.db('taggem2').table('post'),index='apiKey').run(conn))
+		#post_feed=list(r.db('taggem2').table('user').filter({'apiKey':int(apiKey)})['follow'][0].eq_join(lambda x:x,r.db('taggem2').table('post'),index='apiKey').run(conn))
+		skip_no=no*8	
+		post_feed=list(r.db('taggem2').table('post').filter({'apiKey':int(apiKey)}).order_by(r.asc('date')).skip(skip_no).limit(8).run(conn))
 
-        post_feed=list(r.db('taggem2').table('post').filter({'apiKey':int(apiKey)}).order_by(r.asc('date')).run(conn))
-
-        return jsonify({'feed':post_feed})
-    else :
-        return jsonify({'feed':'error'})
-
+		return jsonify({'feed':post_feed})
+	    else :
+		return jsonify({'feed':'not authenticated'}),400
+    except Exception as e:
+	    return jsonify({'error':str(e)}),406
 
 
 

@@ -1,26 +1,30 @@
 $(document).ready(function()
 		{	
-	var url='/feed/';
-	var apiKey=$('#dummy').text();
-//alert(apiKey);
-	url=url+apiKey
 
-	$.ajax({
-        url:url,
-        success:function(data){ /*alert(JSON.stringify(data));*/createAndInsert(data);},
-        error:function(data) {/*alert(JSON.stringify(data));*/ alert("Error loading content. Please refresh the page.");}
-
-		});
-
-
-
-
+getFeed(0);
 
 
 
 
 });
 
+
+function getFeed(no)
+{
+	var url='/feed/';
+	var apiKey=$('#dummy').text().trim();
+//alert(apiKey);
+	url=url+apiKey+'/'+no
+
+	$.ajax({
+        url:url,
+        success:function(data){ alert(JSON.stringify(data));createAndInsert(data);},
+        error:function(data) {alert("error:"+JSON.stringify(data)); alert("Error loading content. Please refresh the page.");}
+
+		});
+
+
+}
 
 
 function createAndInsert(data)
@@ -65,7 +69,7 @@ $('#myModal').on('hidden.bs.modal', function () {
 
 function create(img_url,title,text,url,domain,name,id,views)
 {//alert(img_url);
-	 $('.insert').prepend(
+	 $('.insert').append(
 	 	'<div class="row item top">'+
 	 		'<span class="label" style="color:rgba(0,0,0,.8);">Tagged by '+name+'</span><br/>'+
 	 		'<div class="col-md-5 col-sm-5 col-xs-5 left" style="background-image:url('+img_url+'); background-size:cover;"> </div>'+
