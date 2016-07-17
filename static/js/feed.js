@@ -37,14 +37,14 @@ function createAndInsert(data)
 // alert(data['feed'].length);
 for(var i=0;i<data['feed'].length;i++)
   {
-	var img_url=data['feed'][i]['right']['img_url'];
-	var text=data['feed'][i]['right']['text'];
-	var title=data['feed'][i]['right']['title'];
-	var views=data['feed'][i]['right']['views'];
-	var url=data['feed'][i]['right']['url'];
-	var domain=data['feed'][i]['right']['domain'];
-	var id=data['feed'][i]['right']['id'];
-	var name=data['feed'][i]['right']['user-name'];
+	var img_url=data['feed'][i]['img_url'];
+	var text=data['feed'][i]['text'];
+	var title=data['feed'][i]['title'];
+	var views=data['feed'][i]['views'];
+	var url=data['feed'][i]['url'];
+	var domain=data['feed'][i]['domain'];
+	var id=data['feed'][i]['id'];
+	var name=data['feed'][i]['user-name'];
 		
 	var Text=text.slice(0,200)+'...';
 	if (img_url.trim()=='') img_url='static/images/img_broken.jpg';
