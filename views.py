@@ -267,7 +267,9 @@ def connect():
             #count=r.db('taggem2').table('user').filter({'email':email}).count().run(conn)
             if count >0:
                 print "Entered"
+		#st(r.db('taggem2').table('user').filter(lambda x: r.expr(t[0]['follow']).contains(x['apiKey']).not_() ).run(conn))
                 user=list(r.db('taggem2').table('user').filter(lambda doc:(doc['name'].match(name)) & (doc['apiKey']!=apiKey)).run(conn) )
+				
                 #user=list(r.db('taggem2').table('user').filter({'name':name}).run(conn))
                 msg=str(count)+' users found'
                 profile='/profile/'+str(session['apiKey'])
@@ -324,15 +326,20 @@ def allowed_file(filename):
     return '.' in filename and  filename.rsplit('.', 1)[1] in app.config['ALLOWED_EXTENSIONS']
 
 ####################### follower################################
-
+#apiKey1 => current user
+#apiKey2 => user to be followed
 @app.route('/addFollowers/<int:apiKey1>/<int:apiKey2>',methods=['POST'])
 def addFollower(apiKey1,apiKey2):
     access=authenticate(apiKey1)
     if access==1:
         access2=authenticate(apiKey2)
         if access2==1:
-            user=list(r.db('taggem2').table('user').filter({'apiKey':apiKey1}).update({'follow':r.row['follow'].append(apiKey2)}).run(conn))
-            return jsonify({'result':'success'})
+	    current_user=list(r.db('taggem2').table('user').filter({'apiKey':apiKey1}).run(conn))
+	    if apiKey2 in current_user[0]['follow']:
+		return jsonify({'result':'Already following'}) 	 
+	    else:
+		    user=list(r.db('taggem2').table('user').filter({'apiKey':apiKey1}).update({'follow':r.row['follow'].append(apiKey2)}).run(conn))
+		    return jsonify({'result':'success'})
         else:
             return 0
     else:
