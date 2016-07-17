@@ -178,7 +178,7 @@ def feed(apiKey):
         return jsonify({'feed':'error'}),400
 
 @app.route('/myfeed/<apiKey>/<int:no>')
-def myfeed(apiKey):
+def myfeed(apiKey,no):
     try:
 	    count=r.db('taggem2').table('user').filter({'apiKey':int(apiKey)}).count().run(conn)
 	    if count>0:
