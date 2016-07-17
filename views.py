@@ -161,12 +161,13 @@ def discover():
     else :
         return "Not logged in"
 
-@app.route('/feed/<apiKey>')
-def feed(apiKey):
+@app.route('/feed/<apiKey>/<int:no>')
+def feed(apiKey,no):
     count=r.db('taggem2').table('user').filter({'apiKey':int(apiKey)}).count().run(conn)
+    skip_no=no*8
     if count>0:
 	try:
-		post_feed=list(r.db('taggem2').table('user').filter({'apiKey':int(apiKey)})['follow'][0].eq_join(lambda x:x,r.db('taggem2').table('post'),index='apiKey').limit(12).order_by('date').run(conn))
+		post_feed=list(r.db('taggem2').table('user').filter({'apiKey':int(apiKey)})['follow'][0].eq_join(lambda x:x,r.db('taggem2').table('post'),index='apiKey').skip(skip_no).limit(8).order_by('date').run(conn))
 
 
         #post_feed=list(r.db('taggem2').table('post').filter({'apiKey':int(apiKey)}).order_by(r.desc('date')).run(conn))

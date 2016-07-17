@@ -74,7 +74,7 @@ for(var i=0;i<data['feed'].length;i++)
 function createSearchResult(img_url, title,text,url,domain,id,views=0)
 
 {
-	 $('.insert').prepend(
+	 $('.insert').append(
 	 	'<div class="row item top">'+
 
 	 		 
