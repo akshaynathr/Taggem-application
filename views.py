@@ -231,6 +231,22 @@ def profile(apiKey):
             return "Not logged in "
     else:
         return "Not logged in"
+#this profile is same as the profile above . Profile2 is used to connect users
+
+@app.route('/profile2/<apiKey>')
+def profile2(apiKey):
+    if 'apiKey' in session:
+        print apiKey
+        access=authenticate(apiKey)
+        if access ==1:
+            user=list(r.db('taggem2').table('user').filter({'apiKey':int(apiKey)}).run(conn))
+            print user
+            img='uploads/'+user[0]['img']
+            return render_template('profile2.html',img=img,user=user[0],current_user=session['apiKey'])
+        else:
+            return "Not logged in "
+    else:
+        return "Not logged in"
 
 
 @app.route('/logout')

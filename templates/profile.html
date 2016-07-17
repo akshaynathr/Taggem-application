@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<title>Taggem.</title>
+	<title>Taggem</title>
 	<link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css"/>
 <link rel="stylesheet" type="text/css" href="{{ url_for('static',filename='css/dropdown.css')}}"/>
    
@@ -22,7 +22,7 @@
 
 </head>
 <body>
-
+<div id="dummy" style="display:none;">{{ user.apiKey }} </div>
 <nav class="navbar top_nav">
 <h3 class = "inline"> Taggem </h3>
 
@@ -41,7 +41,10 @@
 
 <div class="container">
 
-<div id="myModal2" class="modal fade" >
+
+ 
+
+<div id="myModal" class="modal fade" >
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
@@ -77,22 +80,22 @@
 			<div class="col-md-4 text-center">
               <img class="img-circle avatar avatar-original" style="-webkit-user-select:none; 
               display:block; margin:auto;width:150px; height:150px; " src={{url_for('static',filename=img)}}>
-			<a href="#myModal2" data-toggle='modal'>Change photo </a>
+			<a href="#myModal" data-toggle='modal'>Change photo </a>
             </div>
             <div class="col-md-8">
               <div class="row">
                 <div class="col-md-12">
-					<h1 class="only-bottom-margin">{{user.name}}</h1>
+					<h1 class="only-bottom-margin inline">{{user.name}} </h1>
                 </div>
               </div>
               <div class="row">
                 <div class="col-md-6">
                   <span class="text-muted">Email:</span> {{user.email}}<br>
                   <span class="text-muted">Birth date:</span> {{user.dob}}<br>
-                  <span class="text-muted">Gender:</span> {{user.gender}}<br><br>
-                  <small class="text-muted">Joined: {{user.date}}</small>
-                  <small class="text-muted">Bio: <small>
-                  <small class="text-muted">Interests: <small>
+                  <span class="text-muted">Gender:</span> {{user.gender}}<br>
+                  <small class="text-muted">Joined: {{user.date}}</small><br>
+                  <small class="text-muted">Bio: </small><br>
+                  <small class="text-muted">Interests: </small><br>
 
                 </div>
                 <!-- <div class="col-md-6">
@@ -120,5 +123,30 @@
 
 <script   src="https://code.jquery.com/jquery-2.2.4.min.js"   integrity="sha256-BbhdlvQf/xTY9gja0Dq3HiwQF8LaCRTXxZKRutelT44="   crossorigin="anonymous"></script>
 <script type="text/javascript" src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+
+<script>
+  function addfollower(btn)
+{
+  //var url='http://localhost:5000/addFollowers/';
+  var url='https://www.taggem.in/addFollowers/';
+
+    
+  var userApiKey=$('#dummy').html();
+    var apiKey=btn.id;
+    url=url+userApiKey+'/'+apiKey;
+    alert(url);
+    $.ajax({
+        url:url,
+        type:'POST',
+        success:function (data) {$('#myModal2').modal({show:true});},
+        error:function(data) { $('#myModal3').modal({show:true});}
+        
+    
+      });
+
+}
+
+
+</script>
 </body>
 </html>
