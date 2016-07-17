@@ -29,7 +29,7 @@ function followers(link)
 {
 		var url='/followers/';
 	var apiKey=$('#dummy').text();
-alert(apiKey);
+//alert(apiKey);
 	url=url+apiKey
 
 	$.ajax({
