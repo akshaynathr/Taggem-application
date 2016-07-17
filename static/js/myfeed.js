@@ -1,7 +1,18 @@
 $(document).ready(function()
 		{	
-getMyFeed(0);
+var pagination_count=0;
+getMyFeed(pagination_count);
 
+
+
+$(window).scroll(function() {
+
+	if($(window).scrollTop()+$(window).height()>$(document).height()-500)	{
+	//alert("near bottom");
+	
+	getMyFeed(++pagination_count);
+}
+});
 
 
 
@@ -50,10 +61,10 @@ function followers(link)
 
 function CreateAndInsert(data)
 {
-	if(data['feed'].length==0)
+	if(data['feed'].length==0 )
 	{
 		//alert("None");
-		 $('.insert').append("<p>No tags yet.All the contents you tag from internet will be available here in My Tags. Download our chrome plugin and start tagging</p>");
+	//	 $('.insert').append("<p>No tags yet.All the contents you tag from internet will be available here in My Tags. Download our chrome plugin and start tagging</p>");
 	 
 	}
 	else {

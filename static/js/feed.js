@@ -1,19 +1,26 @@
 $(document).ready(function()
 		{	
-
-getFeed(0);
-
-
+var pagination_count=0;
+getFeed(pagination_count);
 
 
-});
 
 $(window).scroll(function() {
-	if($(window).scrollTop()+$(window).height()>$(document).height())	{
-	alert("near bottom");
+
+	if($(window).scrollTop()+$(window).height()>$(document).height()-500)	{
+	//alert("near bottom");
+	
+	getFeed(++pagination_count);
 }
 });
 
+
+
+
+
+
+
+});
 
 
 function getFeed(no)
@@ -36,7 +43,8 @@ function getFeed(no)
 
 function createAndInsert(data)
 {
-	if(data['feed'].length==0) {intro_insert(0);}
+	if(data['feed'].length==0) {//intro_insert(0);}
+			}
 
 		else {
 
