@@ -18,7 +18,7 @@ function getMyFeed(no)
 	$.ajax({
         url:url,
         success:function(data){ /*alert(JSON.stringify(data));*/CreateAndInsert(data);},
-        error:function(data) {alert(JSON.stringify(data)); alert("Error loading content. Please refresh the page.");}
+        error:function(data) {/*alert(JSON.stringify(data));*/ alert("Error loading content. Please refresh the page.");}
 
 		});
 

@@ -18,8 +18,8 @@ function getFeed(no)
 
 	$.ajax({
         url:url,
-        success:function(data){ alert(JSON.stringify(data));createAndInsert(data);},
-        error:function(data) {alert("error:"+JSON.stringify(data)); alert("Error loading content. Please refresh the page.");}
+        success:function(data){/* alert(JSON.stringify(data));*/createAndInsert(data);},
+        error:function(data) {/*alert("error:"+JSON.stringify(data));*/ alert("Error loading content. Please refresh the page.");}
 
 		});
 
