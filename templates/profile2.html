@@ -175,7 +175,7 @@
     $.ajax({
         url:url,
         type:'POST',
-        success:function (data) {$('#myModal2').modal({show:true});},
+        success:function (data) {$('#myModal2').modal({show:true});btn.text('Following'); btn.removeClass('btn-danger'); btn.addClass('btn-success')},
         error:function(data) { $('#myModal3').modal({show:true});}
         
     
