@@ -381,3 +381,6 @@ def allusers(apiKey):
     return jsonify({'users':users})
 
 #####################################################################
+@app.route('/founder')
+def founders():
+    return render_template('footer/founders.html')
