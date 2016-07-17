@@ -185,7 +185,7 @@ def myfeed(apiKey,no):
 
 		#post_feed=list(r.db('taggem2').table('user').filter({'apiKey':int(apiKey)})['follow'][0].eq_join(lambda x:x,r.db('taggem2').table('post'),index='apiKey').run(conn))
 		skip_no=no*8	
-		post_feed=list(r.db('taggem2').table('post').filter({'apiKey':int(apiKey)}).order_by(r.asc('date')).skip(skip_no).limit(8).run(conn))
+		post_feed=list(r.db('taggem2').table('post').filter({'apiKey':int(apiKey)}).order_by(r.desc('date')).skip(skip_no).limit(8).run(conn))
 
 		return jsonify({'feed':post_feed})
 	    else :

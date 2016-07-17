@@ -53,7 +53,7 @@ function CreateAndInsert(data)
 	if(data['feed'].length==0)
 	{
 		//alert("None");
-		 $('.insert').prepend("<p>No tags yet.All the contents you tag from internet will be available here in My Tags. Download our chrome plugin and start tagging</p>");
+		 $('.insert').append("<p>No tags yet.All the contents you tag from internet will be available here in My Tags. Download our chrome plugin and start tagging</p>");
 	 
 	}
 	else {
@@ -93,7 +93,7 @@ $('#myModal').on('hidden.bs.modal', function () {
 function Create(img_url, title,text,url,domain,id,date,views=0)
 
 {
-	 $('.insert').prepend(
+	 $('.insert').append(
 	 	'<div class="row item top">'+
 
 	 		'<span class="label" style="color:rgba(0,0,0,.8);">'+'Added on '+date+'</span><br/>'+
