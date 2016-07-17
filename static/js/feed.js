@@ -112,7 +112,6 @@ function intro_insert(val)
 	var done0=0,done1=0,done2=0;
 	if (val==0 && done0==0){
 	$('.insert').prepend(
-			'<div> <h2> You are not following anyone. Please follow a friend of yours and find all the contents tagged by him/her.</h2></div>'+
 	 	'<div class="row item top">'+
  	'<div class="col-md-5 col-sm-5 col-xs-5 left" style="background-image:url(static/images/follow.jpg); background-size:cover;"> </div>'+
 	 		 '<div class="col-md-3 col-sm-3 col-xs-3  right">'+
@@ -128,7 +127,10 @@ function intro_insert(val)
 			 
 	 		'</div>'+ 	 		 
 	 	
-	  '</div> ' );
+	  '</div> '+
+
+			'<div style="text-align:center;"> <h3 style="color:rgba(0,0,0,.5);"> You are not following anyone. Please follow a friend of yours and find all the contents tagged by him/her.</h3></div>'
+ );
 
 	}
 	else if(val==1 && done1==0)
