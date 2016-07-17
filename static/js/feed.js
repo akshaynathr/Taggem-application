@@ -15,7 +15,7 @@ $(window).scroll(function() {
 });
 
 
-
+$('.insert').empty();
 
 
 
@@ -83,7 +83,8 @@ $('#myModal').on('hidden.bs.modal', function () {
 
 
 function create(img_url,title,text,url,domain,name,id,views)
-{//alert(img_url);
+{//alert(img_url);$('.modal-body').empty();
+
 	 $('.insert').append(
 
 	 	'<div class="row item top">'+
