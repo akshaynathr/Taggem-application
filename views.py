@@ -167,7 +167,7 @@ def feed(apiKey,no):
     skip_no=no*8
     if count>0:
 	try:
-		post_feed=list(r.db('taggem2').table('user').filter({'apiKey':int(apiKey)})['follow'][0].eq_join(lambda x:x,r.db('taggem2').table('post'),index='apiKey').zip().skip(skip_no).limit(8).order_by(r.desc('date')).run(conn))
+		post_feed=list(r.db('taggem2').table('user').filter({'apiKey':int(apiKey)})['follow'][0].eq_join(lambda x:x,r.db('taggem2').table('post'),index='apiKey').zip().order_by(r.desc('date')).skip(skip_no).limit(8).run(conn))
 
 
         #post_feed=list(r.db('taggem2').table('post').filter({'apiKey':int(apiKey)}).order_by(r.desc('date')).run(conn))
@@ -231,6 +231,8 @@ def profile(apiKey):
             return "Not logged in "
     else:
         return "Not logged in"
+
+
 #this profile is same as the profile above . Profile2 is used to connect users
 
 @app.route('/profile2/<apiKey>')
@@ -238,6 +240,7 @@ def profile2(apiKey):
     if 'apiKey' in session:
         print apiKey
         access=authenticate(apiKey)
+
         if access ==1:
             user=list(r.db('taggem2').table('user').filter({'apiKey':int(apiKey)}).run(conn))
             print user
