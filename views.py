@@ -83,7 +83,7 @@ def signup():
                 user_data=list(r.db('taggem2').table('user').filter((r.row['username']==username) & (r.row['password']==password)).run(conn))
                 session['apiKey']=user_data[0]['apiKey']
                 
-            except Exception as e:
+            except BaseException as e:
                 result="Error in saving data:"+str(e)
                 return result
             return  redirect(url_for('discover')) 
@@ -108,9 +108,8 @@ def receive_content():
     	data=extract(url)
     	parsed_uri=urlparse(url)
     	domain='{uri.scheme}://{uri.netloc}/'.format(uri=parsed_uri)
-    except Exception as e:
-	result="Error:"+str(e)
-	return jsonify({'result':result})
+    except Exception , error:
+	return jsonify({'result':str(error)}),406
 
     if not URL_REGEX.match(url):
         print "hello"
