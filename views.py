@@ -238,13 +238,18 @@ def profile(apiKey):
 def profile2(apiKey):
     if 'apiKey' in session:
         print apiKey
+	flag=False
         access=authenticate(apiKey)
-
+	friends_key=int(session['apiKey'])
+	followers=list(r.db('taggem2').table('user').filter({'apiKey':friends_key})['follow'].run(conn))
+	current_user_key=int(apiKey)
+	if current_user key in followers[0]:
+		flag=True
         if access ==1:
             user=list(r.db('taggem2').table('user').filter({'apiKey':int(apiKey)}).run(conn))
             print user
             img='uploads/'+user[0]['img']
-            return render_template('profile2.html',img=img,user=user[0],current_user=session['apiKey'])
+            return render_template('profile2.html',img=img,user=user[0],current_user=session['apiKey'],flag=flag)
         else:
             return "Not logged in "
     else:
