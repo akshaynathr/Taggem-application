@@ -280,8 +280,8 @@ def connect():
             
             profile='/profile/'+str(session['apiKey'])
             name=request.form['search']
-            matchkey="(?i)^"+name+"$"
-            count=r.db('taggem2').table('user').filter((lambda doc:(doc['name'].match(name)) & (doc['apiKey']!=apiKey))).count().run(conn) 
+            matchkey="(?i)"+name
+            count=r.db('taggem2').table('user').filter((lambda doc:(doc['name'].match(name.title())) & (doc['apiKey']!=apiKey))).count().run(conn) 
             #count=r.db('taggem2').table('user').filter({'email':email}).count().run(conn)
             if count >0:
                 print "Entered"
