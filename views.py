@@ -243,7 +243,7 @@ def profile2(apiKey):
 	friends_key=int(session['apiKey'])
 	followers=list(r.db('taggem2').table('user').filter({'apiKey':friends_key})['follow'].run(conn))
 	current_user_key=int(apiKey)
-	if current_user key in followers[0]:
+	if current_user_key in followers[0]:
 		flag=True
         if access ==1:
             user=list(r.db('taggem2').table('user').filter({'apiKey':int(apiKey)}).run(conn))
