@@ -139,7 +139,12 @@
             <div class="col-md-8">
               <div class="row">
                 <div class="col-md-12">
-					<h1 class="only-bottom-margin inline">{{user.name}}<button style="margin:5px;" class =" btn btn-danger" id='{{ user.apiKey}}' onclick=addfollower(this);>+follow</button></h1>
+		{% if flag %}
+					<h1 class="only-bottom-margin inline">{{user.name}}<button style="margin:5px;" class =" btn btn-success" id='{{ user.apiKey}}' onclick=addfollower(this);>following</button></h1>
+		{% else %}                			
+
+			<h1 class="only-bottom-margin inline">{{user.name}}<button style="margin:5px;" class =" btn btn-danger" id='{{ user.apiKey}}' onclick=addfollower(this);>+follow</button></h1>
+		{% endif %}
                 </div>
               </div>
               <div class="row">
