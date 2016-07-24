@@ -24,7 +24,6 @@
     <link rel="stylesheet" type="text/css" href="static/css/reveal.css"/>
     <link href="https://fonts.googleapis.com/css?family=Assistant" rel="stylesheet">
 
-
 	<style type="text/css">
 	body { overflow-x:hidden; width: 100%;}
 	.top_nav  { padding:20px; position: fixed; z-index: 10; width: 100%;background-color:rgba(0,0,0,.7);/*#F15A5C*/ ; border-bottom: 1px #e6e6e6 solid;border-radius:0px;}
@@ -94,7 +93,7 @@
 
 
 	<div style="position:fixed; text-align:left;" class="left_bar">
-	<a href="#myModal2" class="block" onclick="followers(this);" id="follower" data-toggle='modal'> Following</a> 
+	<a href="#myModal2" class="block" onclick="followers(this);" id="follower" data-keyboard='true' data-toggle='modal'> Following</a> 
 	<a href="/connect" class="block" id="Connect"  > Connect </a> 
 	</div> 
 
@@ -102,7 +101,7 @@
 
 	</div>
 	 <div class="col-md-8 insert">
-	 	<!--<div class="row item top">oda
+	 	<!--<div class="row item top">
 	 		<div class="col-md-5 left" style="background-image:url('https://cdn2.vox-cdn.com/thumbor/60o-Diw04nVRw0OGVUba_Y2uiHA=/cdn0.vox-cdn.com/uploads/chorus_asset/file/6498515/google-allo-vpavic-verge-12.0.jpg'); background-size:cover;"> </div>
 	 		<div class="col-md-3 right">
 	 		<span class="label">Story from <a href="#"><i>www.verge.com</a></i></span>  -->
@@ -147,7 +146,7 @@
 </div>
  	
 
- 	 <div id="myModal2" class="modal" >
+ 	 <div id="myModal2" class="modal" tabindex='-1'>
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
@@ -173,7 +172,7 @@
     </div> 
     
     <!-- Modal HTML -->
-    <div id="myModal" class="modal fade" >
+    <div id="myModal" class="modal fade" tabindex='-1' >
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
