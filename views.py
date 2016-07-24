@@ -286,12 +286,12 @@ def connect():
             profile='/profile/'+str(session['apiKey'])
             name=request.form['search']
             matchkey="(?i)^"+name+"$"
-            count=r.db('taggem2').table('user').filter((lambda doc:(doc['name'].match(name)) & (doc['apiKey']!=apiKey))).count().run(conn) 
+            count=r.db('taggem2').table('user').filter((lambda doc:(doc['name'].match(name.title())) & (doc['apiKey']!=apiKey))).count().run(conn) 
             #count=r.db('taggem2').table('user').filter({'email':email}).count().run(conn)
             if count >0:
                 print "Entered"
 		#st(r.db('taggem2').table('user').filter(lambda x: r.expr(t[0]['follow']).contains(x['apiKey']).not_() ).run(conn))
-                user=list(r.db('taggem2').table('user').filter(lambda doc:(doc['name'].match(name)) & (doc['apiKey']!=apiKey)).run(conn) )
+                user=list(r.db('taggem2').table('user').filter(lambda doc:(doc['name'].match(name.title())) & (doc['apiKey']!=apiKey)).run(conn) )
 				
                 #user=list(r.db('taggem2').table('user').filter({'name':name}).run(conn))
                 msg=str(count)+' users found'
