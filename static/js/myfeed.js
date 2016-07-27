@@ -123,7 +123,7 @@ function Create(img_url, title,text,url,domain,id,date,views=0)
 	 		'<div class="col-md-3 col-md-3 col-xs-3 right">'+
 	 		'<span class="label">Story from <a href="'+url+'" ><i>'+domain+'</a></i></span>'+
 	 			'<!--<a href="#" data-reveal-id="myModal"><h3>Google Allo  </h3></a>-->'+
-'<a href="#myMoal" class="title_main" onclick="display(this); " id='+id+' data-toggle="modal"><h3 class="title" >'+title+'</h3></a>'+
+'<a href="#myMoal" class="title_main" onclick="display(this); " id='+id+' data-keyboard="true" data-toggle="modal"><h3 class="title" >'+title+'</h3></a>'+
 
 	 			'<p> '+text+'</p>'+
 

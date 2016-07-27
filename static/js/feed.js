@@ -101,9 +101,9 @@ function create(img_url,title,text,url,domain,name,id,views)
 	 		'<span class="label" style="color:rgba(0,0,0,.8);">Tagged by '+name+'</span><br/>'+
 	 		'<div class="col-md-5 col-sm-5 col-xs-5 left" style="background-image:url('+img_url+'); background-size:cover;"> </div>'+
 	 		'<div class="col-md-3 col-sm-3 col-xs-3 right">'+
-	 		'<span class="label">Story from <a href="'+url+'" ><i>'+domain+'</a></i></span>'+
+	 		'<span class="label">Story from <a target="_blank" href="'+url+'" ><i>'+domain+'</a></i></span>'+
 	 			'<!--<a href="#" data-reveal-id="myModal"><h3>Google Allo  </h3></a>-->'+
-'<a href="#myMoal" class="title_main" onclick="display(this); " id='+id+' data-toggle="modal"><h3 class="title" >'+title+'</h3></a>'+
+'<a href="#myMoal" class="title_main" onclick="display(this); " id='+id+' data-keyboard="true" data-toggle="modal"><h3 class="title" >'+title+'</h3></a>'+
 
 	 			'<p> '+text+'</p>'+
 
