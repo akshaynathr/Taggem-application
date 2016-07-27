@@ -3,8 +3,8 @@
 <head> <title> Signup </title> 
 
   <link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css"/>
+  <link rel="stylesheet" type="text/css" href="{{url_for('static',filename='css/datepicker.css') }}" />
  
-
 
 
   <style>
@@ -12,6 +12,7 @@ body {
   color:#fff;
 	background-color:#7E5AF1;
 }
+.datepicker { color:#000;}
 
   </style>
 </head>
@@ -20,7 +21,11 @@ body {
 <div class="container">
     <h1>Taggem</h1>
   	<hr>
-	<div class="row"><form method="post" class="form-horizontal" role='form' enctype="multipart/form-data" >
+	<div class="row">
+
+
+
+  <form method="post" class="form-horizontal" role='form' enctype="multipart/form-data" >
       <!-- left column -->
       <div class="col-md-3">
         <div class="text-center">
@@ -58,7 +63,14 @@ body {
           <div class="form-group">
             <label class="col-md-3 control-label">DOB:</label>
             <div class="col-md-8">
-              <input class="form-control" required type="date"  name="dob">
+              <div class="input-group date"  >
+    <input type="text" class="form-control datepicker" name="dob" data-provide="datepicker-inline">
+              <div class="input-group-addon">
+                            <span class="glyphicon glyphicon-th"></span>
+                </div>
+              </div>
+
+              <!-- <input class="form-control" required  data-provide="datepicker" name="dob"> -->
             </div>
           </div>
           <!-- <div class="form-group">
@@ -110,7 +122,18 @@ body {
 </div>
 <hr>
 
+
 <script   src="https://code.jquery.com/jquery-2.2.4.min.js"   integrity="sha256-BbhdlvQf/xTY9gja0Dq3HiwQF8LaCRTXxZKRutelT44="   crossorigin="anonymous"></script>
 <script type="text/javascript" src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+<script type="text/javascript" src="{{url_for('static',filename='js/datepicker.js') }}"> </script>
+
+<script type="text/javascript">
+    $(document).ready( function () { $('.datepicker').datepicker();});
+
+
+
+</script>
+
 </body>
+
 </html>
